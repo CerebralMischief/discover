@@ -16,15 +16,16 @@ read -p "Domain: " domain
 
 if [ -z $domain ]; then
      echo
-     echo "#########################"
+     echo "========================================"
      echo
      echo "Invalid choice."
+     echo
      echo
      exit
 fi
 
 echo
-echo "#########################"
+echo "========================================"
 echo
 
 for x in $(cat /usr/share/dnsenum/dns.txt); do
@@ -37,4 +38,3 @@ rm tmp
 
 echo
 echo
-

@@ -4,7 +4,7 @@
 # Thanks to Securicon, LLC. for sponsoring development
 #
 # Converts the Nessus plugin database into a CSV file with the following columns:
-#    Vulnerability, CVSS Base Score, Description, Solution, Published
+#    Vulnerability, CVSS Base Score, Description, Solution, Published, Modified
 #
 # To genrate database:
 # Kali Linux
@@ -21,6 +21,8 @@ import csv
 import sys
 import xml.etree.ElementTree as ET
 
+################################################################
+
 class UnicodeWriter:
     """
     A CSV writer which will write rows to CSV file "f",
@@ -36,7 +38,7 @@ class UnicodeWriter:
 
     def writerow(self, row):
         self.writer.writerow([s.encode("utf-8") for s in row])
-        # Fetch UTF-8 output from the queue ...
+        # Fetch UTF-8 output from the queue
         data = self.queue.getvalue()
         data = data.decode("utf-8")
         # ... and reencode it into the target encoding
@@ -60,7 +62,8 @@ def write_results(results_table, out_filename):
             sum_write.writerows(results_table)
 
     except IOError as e:
-        print "Error writing CSV file. Check for permissions and/or path."
+        print "Error writing CSV file. Check for permissions and/or path.\n"
+        print(e)
         exit()
 
 ################################################################
@@ -85,19 +88,19 @@ def max_field_len_excel(ggchild, row_number):
 
 def get_sum_from_xml(filename):
     print "\nParsing XML data. This takes about 90 sec...\n"
-    results_table = [["Vulnerability", "CVSS Base Score", "Description", "Solution", "Published", "Modified"]]
+    results_table = [["Vulnerability", "CVSS Base Score", "Description", "Remediation", "Published", "Updated", "See Also"]]
 
     try:
         tree = ET.parse(filename)
         root = tree.getroot()
-    except:
+    except IOError:
         print "Error reading/parsing XML file. Likely XML file is mangled in some way. Check the XML file."
         exit()
 
     row_tracker = 1
     for child in root:
         row_tracker += 1
-        row = ["", "", "", "", "", ""]
+        row = ["", "", "", "", "", "", ""]
         for gchild in child:
 
             if gchild.tag == "script_name":
@@ -120,6 +123,9 @@ def get_sum_from_xml(filename):
                     elif ggchild[0].text == "plugin_modification_date":
                         row[5] = max_field_len_excel(ggchild, row_tracker)
 
+                    elif ggchild[0].text == "see_also":
+                        row[6] = max_field_len_excel(ggchild, row_tracker)
+
         results_table.append(row)
 
     return results_table
@@ -135,3 +141,4 @@ if __name__ == "__main__":
         print "\nUsage: ./parse-nessus-feed.py input.xml output.csv"
         print "Any field longer than 32,000 characters will be truncated.\n".format(sys.argv[0])
         exit()
+

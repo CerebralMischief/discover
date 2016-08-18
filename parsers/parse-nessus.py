@@ -29,7 +29,7 @@ class NessusParser:
         hostProperties = host.findall("./HostProperties")[0]
 
         _temp_ip = hostProperties.findall("./tag[@name='host-ip']")
-        if _temp_ip is not None:
+        if len(_temp_ip) > 0 and _temp_ip is not None:
             properties['host-ip'] = _temp_ip[0].text
         else:
             properties['host-ip'] = host.attrib['name']
@@ -121,7 +121,7 @@ if __name__ == "__main__":
             nessusParser = NessusParser()
 
             for fileName in sys.argv[1:]:
-                try:
+                # try:
                     nessusParser.loadXML(fileName)
                     hostReports = []
 
@@ -156,11 +156,12 @@ if __name__ == "__main__":
 
                             hostReports.append(reportItemDict)
                     csvWriter.writerows(hostReports)
-                except:
-                    print "[!] Error processing {}".format(fileName)
-                    pass
+                # except:
+                #     print "[!] Error processing {}".format(fileName)
+                #     pass
         outFile.close()
     else:
         print "\nUsage: ./parse-nessus.py input.nessus"
         print "Any field longer than 32,000 characters will be truncated.\n".format(sys.argv[0])
         exit()
+

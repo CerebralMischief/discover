@@ -4,29 +4,56 @@ clear
 echo
 echo
 
-echo -e "\e[1;34mUpdating OS.\e[0m"
+# Fix for errors from URLCrazy file tld.rb lines 81,89,91
+# since project is not actively supported.
+
+tlddir=$(locate homophones.rb | sed 's%/[^/]*$%/%')
+cd $tlddir
+
+if [ ! -f tld.rb.bak ]; then
+    cp tld.rb tld.rb.bak
+    cat tld.rb | grep '"bd"=>' -v | grep '"bn"=>' -v | grep '"br"=>' -v > tld_tmp.rb
+    mv tld_tmp.rb tld.rb
+fi
+
+#########################################################
+
+
+if [ -d /pentest ]; then
+     echo -e "\e[1;34mUpdating Discover.\e[0m"
+     git pull
+     echo
+     echo
+     exit
+fi
+
+echo -e "\e[1;34mUpdating Kali.\e[0m"
 apt-get update ; apt-get -y upgrade ; apt-get -y dist-upgrade ; apt-get -y autoremove ; apt-get -y autoclean ; echo
 
-if [ -d /opt/discover/.git ]; then
-     echo -e "\e[1;34mUpdating Discover scripts.\e[0m"
-     cd /opt/discover/ ; git pull
-     cp /opt/discover/alias /root/.bash_aliases ; source /root/.bash_aliases
+if [ -d /opt/CrackMapExec/.git ]; then
+     echo -e "\e[1;34mUpdating CrackMapExec.\e[0m"
+     cd /opt/CrackMapExec/ ; git pull
      echo
 else
-     rm -rf /opt/scripts/
-     echo -e "\e[1;33mInstalling scripts into new location: /opt/discover/.\e[0m"
-     git clone git://github.com/leebaird/discover.git /opt/discover
+     echo -e "\e[1;33mInstalling CrackMapExec.\e[0m"
+     git clone https://github.com/byt3bl33d3r/CrackMapExec.git /opt/CrackMapExec
      echo
 fi
 
-if [ -d /opt/easy-creds/.git ]; then
-     echo -e "\e[1;34mUpdating easy-creds.\e[0m"
-     cd /opt/easy-creds/ ; git pull
+if [ -d /opt/discover/.git ]; then
+     echo -e "\e[1;34mUpdating Discover.\e[0m"
+     cd /opt/discover ; git pull
+     echo
+fi
+
+if [ -d /opt/Empire/.git ]; then
+     echo -e "\e[1;34mUpdating Empire.\e[0m"
+     cd /opt/Empire/ ; git pull
      echo
 else
-     echo -e "\e[1;33mInstalling easy-creds.\e[0m"
-     git clone git://github.com/brav0hax/easy-creds.git /opt/easy-creds
-     ln -s /opt/easy-creds/easy-creds.sh  /usr/bin/easy-creds
+     echo -e "\e[1;33mInstalling Empire.\e[0m"
+     git clone https://github.com/PowerShellEmpire/Empire.git /opt/Empire
+     /opt/Empire/setup/install.sh
      echo
 fi
 
@@ -36,23 +63,38 @@ if [ -d /opt/EyeWitness/.git ]; then
      echo
 else
      echo -e "\e[1;33mInstalling EyeWitness.\e[0m"
-     git clone git://github.com/ChrisTruncer/EyeWitness.git /opt/EyeWitness
+     git clone https://github.com/ChrisTruncer/EyeWitness.git /opt/EyeWitness
+     /opt/EyeWitness/setup/setup.sh
 fi
 
-if [ ! -f /opt/google/chrome/google-chrome ]; then
-     echo -e "\e[1;33mInstalling Google Chrome.\e[0m"
-     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-     dpkg -i google-chrome-stable_current_amd64.deb
-     head -n -1 /opt/google/chrome/google-chrome > temp.txt ; mv temp.txt /opt/google/chrome/google-chrome
-     echo 'exec -a "$0" "$HERE/chrome"  "$@" --user-data-dir' >> /opt/google/chrome/google-chrome
-     chmod +x /opt/google/chrome/google-chrome
-     rm google-chrome-stable_current_amd64.deb
+if [ ! -f /usr/bin/ssconvert ]; then
+     echo -e "\e[1;33mInstalling gnumeric.\e[0m"
+     apt-get install -y gnumeric
      echo
 fi
 
-if [ ! -f /usr/bin/i586-mingw32msvc-c++ ]; then
-     echo -e "\e[1;33mInstalling Ming C Compiler.\e[0m"
-     apt-get -y install mingw32
+if [ ! -f /usr/bin/goofile ]; then
+     echo -e "\e[1;33mInstalling goofile.\e[0m"
+     apt-get install -y goofile
+     echo
+fi
+
+if [ ! -f /usr/bin/xmllint ]; then
+     echo -e "\e[1;33mInstalling libxml2-utils.\e[0m"
+     apt-get install -y libxml2-utils
+     echo
+fi
+
+if [ -d /opt/prowl/.git ]; then
+     echo -e "\e[1;34mUpdating Prowl.\e[0m"
+     cd /opt/prowl/ ; git pull
+     echo
+else
+     echo -e "\e[1;33mInstalling Prowl.\e[0m"
+     git clone https://github.com/Pickfordmatt/Prowl /opt/prowl
+     chmod 755 /opt/prowl/prowl.py
+     apt-get install python-pip python-lxml
+     pip install dnspython Beautifulsoup4 Gitpython
      echo
 fi
 
@@ -66,32 +108,31 @@ else
      /opt/rawr/install.sh y
 fi
 
-if [ -d /opt/smbexec/.git ]; then
-     echo -e "\e[1;34mUpdating smbexec.\e[0m"
-     cd /opt/smbexec/ ; git pull
+if [ -d /opt/Responder/.git ]; then
+     echo -e "\e[1;34mUpdating Responder.\e[0m"
+     cd /opt/Responder/ ; git pull
      echo
 else
-     echo -e "\e[1;33mInstalling smbexec.\e[0m"
-     git clone git://github.com/pentestgeek/smbexec-2.git /opt/smbexec
-     ln -s /opt/smbexec/smbexec.rb  /usr/bin/smbexec
+     echo -e "\e[1;33mInstalling Responder.\e[0m"
+     git clone https://github.com/SpiderLabs/Responder.git /opt/Responder
      echo
 fi
 
-if [ -d /opt/veil/.git ]; then
-     echo -e "\e[1;33mInstalling Veil-Evasion suite.\e[0m"
-     unlink /usr/bin/veil
-     rm -rf /opt/veil
-     apt-get -y install veil-evasion veil-catapult
+if [ -f /usr/bin/theharvester ]; then
+     echo -e "\e[1;34mUpdating theHarvester.\e[0m"
+     mv /usr/bin/theharvester /usr/bin/theHarvester
      echo
 fi
 
-if [ ! -f /usr/share/windows-binaries/wce.exe ]; then
-     echo -e "\e[1;33mInstalling Windows Credential Editor.\e[0m"
-     wget http://www.ampliasecurity.com/research/wce_v1_4beta_universal.zip
-     unzip wce_v1_4beta_universal.zip
-     chmod 755 wce.exe
-     mv wce.exe /usr/share/windows-binaries/
-     rm Changelog LICENSE.txt README wce_v1_4beta_universal.zip
+if [ ! -f /usr/bin/xdotool ]; then
+     echo -e "\e[1;33mInstalling xdotool.\e[0m"
+     apt-get install -y xdotool
+     echo
+fi
+
+if [ ! -f /usr/bin/xml_grep ]; then
+     echo -e "\e[1;33mInstalling xml_grep.\e[0m"
+     apt-get install -y xml-twig-tools
      echo
 fi
 
@@ -99,3 +140,4 @@ echo -e "\e[1;34mUpdating locate database.\e[0m" ; updatedb
 
 echo
 echo
+

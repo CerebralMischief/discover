@@ -2,7 +2,7 @@
 
 clear
 
-break="=================================================="
+break="========================================"
 DIR=/root/Desktop/compare-sites
 DIFFONLY=false
 
@@ -108,4 +108,3 @@ if [ $VERSION -gt 1 ]; then
           # frames, window.location, window.href
      done
 fi
-
