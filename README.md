@@ -1,10 +1,7 @@
-Follow on Twitter @discoverscripts
+Follow on Twitter [![Twitter Follow](https://img.shields.io/twitter/follow/shields_io.svg?style=social&label=Follow&maxAge=25920)](https://twitter.com/discoverscripts) <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT licsense" width="100" height="20">
+
 
 For use with Kali Linux. Custom bash scripts used to automate various pentesting tasks.
-
-# License
-
-This project is licensed under the MIT License (MIT).
 
 ### Download, setup & usage
 * git clone https://github.com/leebaird/discover /opt/discover/
@@ -174,9 +171,10 @@ MALICIOUS PAYLOADS
 3.  linux/x64/shell_reverse_tcp
 4.  linux/x86/meterpreter/reverse_tcp
 5.  osx/x64/shell_reverse_tcp
-6.  windows/meterpreter/reverse_tcp
-7.  windows/x64/meterpreter/reverse_tcp
-8.  Previous menu
+6.  php/meterpreter/reverse_tcp
+7.  windows/meterpreter/reverse_tcp
+8.  windows/x64/meterpreter/reverse_tcp
+9.  Previous menu
 ```
 
 ### Start a Metasploit listener
@@ -188,9 +186,10 @@ Metasploit LISTENERS
 3.  linux/x64/shell_reverse_tcp
 4.  linux/x86/meterpreter/reverse_tcp
 5.  osx/x64/shell_reverse_tcp
-6.  windows/meterpreter/reverse_tcp
-7.  windows/x64/meterpreter/reverse_tcp
-8.  Previous menu
+6.  php/meterpreter/reverse_tcp
+7.  windows/meterpreter/reverse_tcp
+8.  windows/x64/meterpreter/reverse_tcp
+9.  Previous menu
 ```
 
 ### Update

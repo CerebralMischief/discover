@@ -25,6 +25,8 @@ use recon/domains-hosts/shodan_hostname
 run
 use recon/domains-hosts/ssl_san
 run
+use recon/domains-hosts/threatcrowd
+run
 use recon/domains-hosts/vpnhunter
 run
 
@@ -62,10 +64,6 @@ use recon/ports-hosts/migrate_ports
 run
 
 use recon/hosts-hosts/bing_ip
-run
-use recon/hosts-hosts/freegeoip
-run
-use recon/hosts-hosts/ipinfodb
 run
 use recon/hosts-hosts/ssltools
 run

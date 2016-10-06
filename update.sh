@@ -18,7 +18,6 @@ fi
 
 #########################################################
 
-
 if [ -d /pentest ]; then
      echo -e "\e[1;34mUpdating Discover.\e[0m"
      git pull
@@ -109,19 +108,16 @@ else
 fi
 
 if [ -d /opt/Responder/.git ]; then
-     echo -e "\e[1;34mUpdating Responder.\e[0m"
-     cd /opt/Responder/ ; git pull
-     echo
-else
-     echo -e "\e[1;33mInstalling Responder.\e[0m"
-     git clone https://github.com/SpiderLabs/Responder.git /opt/Responder
+     echo -e "\e[1;33mRemoving Responder.\e[0m"
+     rm -rf /opt/Responder/
      echo
 fi
 
-if [ -f /usr/bin/theharvester ]; then
-     echo -e "\e[1;34mUpdating theHarvester.\e[0m"
-     mv /usr/bin/theharvester /usr/bin/theHarvester
-     echo
+if [[  -d /opt/theHarvester/.git ]]; then
+    echo -e "\e[1;33mDeleting theHarvester.\e[0m"
+    rm -rf /opt/theHarvester
+    rm /usr/share/theHarvester
+    echo
 fi
 
 if [ ! -f /usr/bin/xdotool ]; then
