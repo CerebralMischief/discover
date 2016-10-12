@@ -108,22 +108,22 @@ Burp > User options > Save user options: burp-user
 This will provide you a starting point for all future scans.
 ------------------------------------------------------------------------------------------------------
 
-# Quick Start
+# Methodology
 
-- Scope
+# Scope
 Firefox > surf to the target site and click on a couple of links.
 Burp > Target > Site map > right click (RC) on the target URL > Add to scope
 Target > Scope: you will see the URL listed in the top window
 Target > Site map > Filter: enable Show only in-scope items > Filter
 
-- Manually browse app
+# Manually browse the app
 Look for target.com/sitemap.
 If present, hold down the Command key and click on about 20 links.
 If not present, start exploring the target by clicking on every link on every page.
 Enter a single tick (') in any input field.
 Continue until you have thoroughly browsed the target.
 
-- Spider app
+# Spider the app
 Target > Site map > RC on the target URL > Spider this host
 Spider > Control: watch the Requests made increase.
 When the Requests and Forms queued are both zero, click Spider is running.
@@ -135,12 +135,13 @@ RC on any pages that are grey or red > Copy URL > paste into Firefox
      Or RC on any pages that are grey or red > GET Empty Response
 Save the state: <appname>-spider
 
-- Brute force directories
-Target > Site map > RC on '/' > Send to Intruder
+# Brute force directories
+Target > Site map > RC on the second line '/' > Send to Intruder
 Intruder > Position > Attack type: Sniper
 Clear §
 On the top line, select the forward slash '/' after GET > Add §
 Move the forward slash in front of the two symbols. It should look like: GET /§§
+
 Payloads:
      Payload Sets
           Payload set: 1
@@ -149,19 +150,25 @@ Payloads:
           Select file > seclists > Discovery > Web_Content > raft-medium-directories.txt > Open
      Start attack
 
-Filter > uncheck 4xx [request error] > Filter
-Click Status to sort by ascending.
 Clean up results when the attack completes:
-     Select the first line with a 301 status.
-     Hold down shift and select the last line with a 301 status.
+     Filter > uncheck 4xx [request error] > Filter
+     Click Status to sort by ascending.
+     Select the first line with a 302 status.
+     Hold down shift and select the last line with a 302 status.
      RC > Delete select items > Yes
+
 Add remaining items to Site map:
-     RC on the first line > Request in browser > In current session
+     Select the first line and RC in the bottom pane > Request in browser > In current browser session
      Check: In future, just copy the URL and don't show this dialog > Copy
      Firefox > open a new tab > paste
-     Repeat with remaining lines.
+     Repeat with the remaining lines.
 
-- Brute force logins
+# Grey folders
+RC on grey folder > GET Empty Response
+If the folder is still grey > RC > Delete branch > Yes
+---------------------------------------------------------------
+
+# Brute force logins
 Try to login
 Proxy > History > find the POST request > RC > Send to Intruder
 
@@ -228,12 +235,12 @@ Filter > uncheck 4xx [request error] > Filter
 Click Status to sort by ascending.
 Look for a 302 (redirect). This should be a successful login.
 
-- Scan app
+# Actively scan the app
 Spider > Control > Spider is paused
 Target > Site map > RC on the target URL > Actively scan this host
 Active scanning wizard: check all boxes > Next > Ok
-Scanner > Scan que > RC > Automatically delete finished items > Yes
-Scanner > Results
+Scanner > Scan queue > RC > Resume scanner
+Scanner > Scan queue > RC > Hide finished items
 ------------------------------------------------------------------------------------------------------
 
 # Alerts
@@ -246,7 +253,7 @@ Scanner > Options:
 
 # Authentication
 
-Options > Connections > Platform Authentication > Add
+User options > Connections > Platform Authentication > Add
      Destination host: target URL
      Authentication type: Basic, NTLMv1, NTLMv2 or Digest
      Username and Password
