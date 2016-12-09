@@ -20,19 +20,20 @@ SCANNING
 5.  CIDR
 6.  List
 7.  IP, range, or domain
+8.  Rerun Nmap scripts and MSF aux.
 
 WEB
-8.  Open multiple tabs in Firefox
-9.  Nikto
-10. SSL
+9.  Open multiple tabs in Firefox
+10. Nikto
+11. SSL
 
 MISC
-11. Crack WiFi
-12. Parse XML
-13. Generate a malicious payload
-14. Start a Metasploit listener
-15. Update
-16. Exit
+12. Crack WiFi
+13. Parse XML
+14. Generate a malicious payload
+15. Start a Metasploit listener
+16. Update
+17. Exit
 ```
 ## RECON
 ### Domain
@@ -112,6 +113,7 @@ Type of scan:
 * Internal scan will set the nmap source port to 88 and the max-rrt-timeout to 500ms.
 * Nmap is used to perform host discovery, port scanning, service enumeration and OS identification.
 * Matching nmap scripts are used for additional enumeration.
+* Addition tools: enum4linux, smbclient, and ike-scan.
 * Matching Metasploit auxiliary modules are also leveraged.
 
 ## WEB

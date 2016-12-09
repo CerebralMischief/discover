@@ -86,15 +86,15 @@ Intruder > Options:
           Number of retries on network failure: 2
 
 Extender:
-     Options:
-          Python Environment > Select file > Browse to /Applications/jython-standalone-(version).jar > Open
      BApp Store:
           CO2, J2EEScan, Paramalyzer, Retire.js, Site Map Fetcher, Wsdler, and XSS Validator
+     Options:
+          Python Environment > Select file > Browse to /Applications/jython-standalone-(version).jar > Open  
 
 Project options > Misc:
      Burp Collaborator Server: Don't use Burp Collaborator
      
-User optionns:
+User options:
      Connections:
           Platform Authentication: enable Prompt for credentials on platform authentication failure
      Display:
@@ -166,6 +166,11 @@ Add remaining items to Site map:
 # Grey folders
 RC on grey folder > GET Empty Response
 If the folder is still grey > RC > Delete branch > Yes
+
+# Review comments
+Target > Site map > RC the target URL > Engagement tools > Find comments
+Sort by Item
+Review each line item for sensitive information.
 ---------------------------------------------------------------
 
 # Brute force logins
@@ -267,8 +272,8 @@ You should be logged into the web application.
 Create a list of all POST requests that do not have a unique token called ‘CSRF_Token’. 
 
 Proxy > HTTP history > Filter > Filter by search term
-	^POST((?!CSRF_Token).)*$
-	Click Regex
+     ^POST((?!CSRF_Token).)*$
+     Click Regex
 
 RC on the first request > Engagement tools > Generate CSRF PoC
 Test in browser > Copy
