@@ -1895,9 +1895,9 @@ f_report
 ##############################################################################################################
 
 f_scan(){
-custom='1-1040,1050,1080,1099,1125,1158,1194,1214,1220,1344,1352,1433,1500,1503,1521,1524,1526,1720,1723,1731,1812,1813,1883,1911,1953,1959,1962,2000,2002,2030,2049,2100,2121,2200,2202,2222,2301,2375,2381,2401,2433,2456,2500,2556,2628,2745,2780-2783,2947,3000,3001,3031,3121,3127,3128,3200,3201,3230-3235,3260,3268,3269,3306,3310, 3339,3389,3460,3500,3527,3632,3689,4000,4045,4100,4242,4369,4430,4443,4445,4661,4662,4711,4848,5000,5001,5009,5010,5019,5038,5040,5059,5060,5061,5101,5180,5190,5191,5192,5193,5250,5432,5554,5555,5560,5566,5631,5666,5672,5678,5800,5801,5802,5803,5804,5850,5900-6009,6101,6106,6112,6161,6346,6379,6588,6666,6667,6697,6777,7000,7001,7002,7070,7100,7210,7510,7634,7777,7778,8000,8001,8004,8005,8008,8009,8080,8081,8082,8083,8091,8098,8099,8100,8180,8181,8222,8332,8333,8383,8384,8400,8443,8444,8470-8480,8500,8787,8834,8866,8888,9090,9100,9101,9102,9160,9343,9470-9476,9480,9495,9600,9996,9999,10000,10025,10168,11211,12000,12345,12346,13659,15000,16080,18181-18185,18207,18208,18231,18232,19150,19190,19191,20034,22226,27017,27374,27665,28784,30718,31337,32764,32768,32771,33333,35871,37172,37777,38903,39991,39992,40096,46144,46824,49152,49400,50000,50030,50060,50070,50075,50090,51080,51443,53050,54320,58847,60000,60010,60030,60148,60365,62078,63148'
+custom='1-1040,1050,1080,1099,1158,1344,1352,1433,1521,1720,1723,1883,1911,1962,2202,2375,2628,2947,3000,3031,3050,3260,3306,3310,3389,3500,3632,4369,5019,5040,5060,5432,5560,5631,5632,5666,5672,5850,5900,5920,5984,5985,6000,6001,6002,6003,6004,6005,6379,6666,7210,7634,7777,8000,8009,8080,8081,8091,8222,8332,8333,8400,8443,8834,9000,9084,9100,9160,9600,9999,10000,11211,12000,12345,13364,19150,27017,28784,30718,35871,37777,46824,49152,50000,50030,50060,50070,50075,50090,60010,60030'
 full='1-65535'
-udp='53,67,123,137,161,500,523,623,1434,1604,2302,3478,3671,4070,5353,5683,6481,17185,31337,44818,47808'
+udp='53,67,123,137,161,407,500,523,623,1434,1604,1900,2302,2362,3478,3671,5353,5683,6481,17185,31337,44818,47808'
 
 echo
 echo -n "Perform full TCP port scan? (y/N) "
@@ -1990,7 +1990,7 @@ echo $medium
 echo
 echo -e "\x1B[1;34mLocating high value ports.\x1B[0m"
 echo "     TCP"
-TCP_PORTS="13 19 21 22 23 25 37 53 70 79 80 102 110 111 119 135 139 143 389 433 443 445 465 502 512 513 514 523 524 548 554 563 587 623 631 771 873 902 993 995 1050 1080 1099 1158 1344 1352 1433 1521 1720 1723 1883 1911 1962 2202 2375 2628 2947 3000 3031 3260 3306 3310 3389 3500 3632 4369 5019 5040 5060 5432 5560 5631 5666 5672 5850 5900 5920 5984 5985 6000 6001 6002 6003 6004 6005 6379 6666 7210 7634 7777 8000 8009 8080 8081 8091 8222 8332 8333 8400 8443 8834 9100 9160 9600 9999 10000 11211 12000 12345 19150 27017 28784 30718 35871 37777 46824 49152 50000 50030 50060 50070 50075 50090 60010 60030"
+TCP_PORTS="13 19 21 22 23 25 37 69 70 79 80 102 110 111 119 135 139 143 389 433 443 445 465 502 512 513 514 523 524 548 554 563 587 623 631 636 771 831 873 902 993 995 998 1050 1080 1099 1158 1344 1352 1433 1521 1720 1723 1883 1911 1962 2202 2375 2628 2947 3000 3031 3050 3260 3306 3310 3389 3500 3632 4369 5019 5040 5060 5432 5560 5631 5632 5666 5672 5850 5900 5920 5984 5985 6000 6001 6002 6003 6004 6005 6379 6666 7210 7634 7777 8000 8009 8080 8081 8091 8222 8332 8333 8400 8443 8834 9000 9084 9100 9160 9600 9999 10000 11211 12000 12345 13364 19150 27017 28784 30718 35871 37777 46824 49152 50000 50030 50060 50070 50075 50090 60010 60030"
 
 for i in $TCP_PORTS; do
      cat $name/nmap.gnmap | grep "\<$i/open/tcp\>" | cut -d ' ' -f2 > $name/$i.txt
@@ -2005,7 +2005,7 @@ if [[ -e $name/5060.txt ]]; then
 fi
 
 echo "     UDP"
-UDP_PORTS="53 67 123 137 161 500 523 623 1434 1604 2302 3478 3671 4070 5353 5683 6481 17185 31337 44818 47808"
+UDP_PORTS="53 67 123 137 161 407 500 523 623 1434 1604 1900 2302 2362 3478 3671 5353 5683 6481 17185 31337 44818 47808"
 
 for i in $UDP_PORTS; do
      cat $name/nmap.gnmap | grep "\<$i/open/udp\>" | cut -d ' ' -f2 > $name/$i.txt
@@ -2085,7 +2085,7 @@ fi
 
 if [[ -e $name/23.txt ]]; then
      echo "     Telnet"
-     nmap -iL $name/23.txt -Pn -n --open -p23 --script=banner,telnet-encryption,telnet-ntlm-info --host-timeout 5m --min-hostgroup 100 -g $sourceport --scan-delay $delay > tmp
+     nmap -iL $name/23.txt -Pn -n --open -p23 --script=banner,cics-enum,cics-user-enum,telnet-encryption,telnet-ntlm-info,tn3270-info,tn3270-screen,tso-enum,vtam-enum --host-timeout 5m --min-hostgroup 100 -g $sourceport --scan-delay $delay > tmp
      f_cleanup
      mv tmp4 $name/script-23.txt
 fi
@@ -2094,7 +2094,7 @@ if [[ -e $name/smtp.txt ]]; then
      echo "     SMTP"
      nmap -iL $name/smtp.txt -Pn -n --open -p25,465,587 --script=banner,smtp-commands,smtp-ntlm-info,smtp-open-relay,smtp-strangeport,smtp-enum-users,ssl*,tls-nextprotoneg -sV --script-args smtp-enum-users.methods={EXPN,RCPT,VRFY} --host-timeout 5m --min-hostgroup 100 -g $sourceport --scan-delay $delay > tmp
      f_cleanup
-     mv tmp4 $name/script-25.txt
+     mv tmp4 $name/script-smtp.txt
 fi
 
 if [[ -e $name/37.txt ]]; then
@@ -2157,7 +2157,7 @@ if [[ -e $name/nntp.txt ]]; then
      echo "     NNTP"
      nmap -iL $name/nntp.txt -Pn -n --open -p119,433,563 --script=nntp-ntlm-info --host-timeout 5m --min-hostgroup 100 -g $sourceport --scan-delay $delay > tmp
      f_cleanup
-     mv tmp4 $name/script-119.txt
+     mv tmp4 $name/script-nntp.txt
 fi
 
 if [[ -e $name/123.txt ]]; then
@@ -2832,419 +2832,462 @@ echo -e "\x1B[1;34mUsing the following resource files.\x1B[0m"
 cp -R $discover/resource/ /tmp/
 
 echo workspace -a $name > /tmp/master
+echo spool $name/msf-spool.txt > /tmp/master
 
 if [[ -e $name/19.txt ]]; then
-     echo "     CHARGEN"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$discover\/$name\/19.txt|g" /tmp/resource/chargen.rc
-     cat /tmp/resource/chargen.rc >> /tmp/master
+     echo "     Chargen Probe Utility"
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$discover\/$name\/19.txt|g" /tmp/resource/19-chargen.rc
+     cat /tmp/resource/19-chargen.rc >> /tmp/master
 fi
 
 if [[ -e $name/21.txt ]]; then
      echo "     FTP"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/21.txt|g" /tmp/resource/ftp.rc
-     cat /tmp/resource/ftp.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/21.txt|g" /tmp/resource/21-ftp.rc
+     cat /tmp/resource/21-ftp.rc >> /tmp/master
 fi
 
 if [[ -e $name/22.txt ]]; then
      echo "     SSH"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/22.txt|g" /tmp/resource/ssh.rc
-     cat /tmp/resource/ssh.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/22.txt|g" /tmp/resource/22-ssh.rc
+     cat /tmp/resource/22-ssh.rc >> /tmp/master
 fi
 
 if [[ -e $name/23.txt ]]; then
      echo "     Telnet"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/23.txt|g" /tmp/resource/telnet.rc
-     cat /tmp/resource/telnet.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/23.txt|g" /tmp/resource/23-telnet.rc
+     cat /tmp/resource/23-telnet.rc >> /tmp/master
 fi
 
 if [[ -e $name/25.txt ]]; then
      echo "     SMTP"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/25.txt|g" /tmp/resource/smtp.rc
-     cat /tmp/resource/smtp.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/25.txt|g" /tmp/resource/25-smtp.rc
+     cat /tmp/resource/25-smtp.rc >> /tmp/master
 fi
 
 if [[ -e $name/69.txt ]]; then
      echo "     TFTP"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/69.txt|g" /tmp/resource/tftp.rc
-     cat /tmp/resource/tftp.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/69.txt|g" /tmp/resource/69-tftp.rc
+     cat /tmp/resource/69-tftp.rc >> /tmp/master
 fi
 
 if [[ -e $name/79.txt ]]; then
      echo "     Finger"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/79.txt|g" /tmp/resource/finger.rc
-     cat /tmp/resource/finger.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/79.txt|g" /tmp/resource/79-finger.rc
+     cat /tmp/resource/79-finger.rc >> /tmp/master
 fi
 
 if [[ -e $name/80.txt ]]; then
      echo "     Lotus"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/80.txt|g" /tmp/resource/lotus.rc
-     cat /tmp/resource/lotus.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/80.txt|g" /tmp/resource/80-lotus.rc
+     cat /tmp/resource/80-lotus.rc >> /tmp/master
 fi
 
 if [[ -e $name/80.txt ]]; then
      echo "     SCADA Indusoft WebStudio NTWebServer"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/80.txt|g" /tmp/resource/scada3.rc
-     cat /tmp/resource/scada3.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/80.txt|g" /tmp/resource/80-scada.rc
+     cat /tmp/resource/80-scada.rc >> /tmp/master
 fi
 
 if [[ -e $name/110.txt ]]; then
      echo "     POP3"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/110.txt|g" /tmp/resource/pop3.rc
-     cat /tmp/resource/pop3.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/110.txt|g" /tmp/resource/110-pop3.rc
+     cat /tmp/resource/110-pop3.rc >> /tmp/master
 fi
 
 if [[ -e $name/111.txt ]]; then
      echo "     NFS"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/111.txt|g" /tmp/resource/nfs.rc
-     cat /tmp/resource/nfs.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/111.txt|g" /tmp/resource/111-nfs.rc
+     cat /tmp/resource/111-nfs.rc >> /tmp/master
 fi
 
 if [[ -e $name/123.txt ]]; then
      echo "     NTP"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/123.txt|g" /tmp/resource/ntp.rc
-     cat /tmp/resource/ntp.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/123.txt|g" /tmp/resource/123-udp-ntp.rc
+     cat /tmp/resource/123-udp-ntp.rc >> /tmp/master
 fi
 
 if [[ -e $name/135.txt ]]; then
      echo "     DCE/RPC"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/135.txt|g" /tmp/resource/dcerpc.rc
-     cat /tmp/resource/dcerpc.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/135.txt|g" /tmp/resource/135-dcerpc.rc
+     cat /tmp/resource/135-dcerpc.rc >> /tmp/master
 fi
 
 if [[ -e $name/137.txt ]]; then
      echo "     NetBIOS"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/137.txt|g" /tmp/resource/netbios.rc
-     cat /tmp/resource/netbios.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/137.txt|g" /tmp/resource/137-udp-netbios.rc
+     cat /tmp/resource/137-udp-netbios.rc >> /tmp/master
 fi
 
 if [[ -e $name/143.txt ]]; then
      echo "     IMAP"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/143.txt|g" /tmp/resource/imap.rc
-     cat /tmp/resource/imap.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/143.txt|g" /tmp/resource/143-imap.rc
+     cat /tmp/resource/143-imap.rc >> /tmp/master
 fi
 
 if [[ -e $name/161.txt ]]; then
      echo "     SNMP"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/161.txt|g" /tmp/resource/snmp.rc
-     cat /tmp/resource/snmp.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/161.txt|g" /tmp/resource/161-udp-snmp.rc
+     cat /tmp/resource/161-udp-snmp.rc >> /tmp/master
 fi
 
 if [[ -e $name/407.txt ]]; then
      echo "     Motorola"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/407.txt|g" /tmp/resource/motorola.rc
-     cat /tmp/resource/motorola.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/407.txt|g" /tmp/resource/407-udp-motorola.rc
+     cat /tmp/resource/407-udp-motorola.rc >> /tmp/master
 fi
 
 if [[ -e $name/443.txt ]]; then
      echo "     VMware"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/443.txt|g" /tmp/resource/vmware.rc
-     cat /tmp/resource/motorola.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/443.txt|g" /tmp/resource/443-vmware.rc
+     cat /tmp/resource/443-vmware.rc >> /tmp/master
 fi
 
 if [[ -e $name/445.txt ]]; then
      echo "     SMB"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/445.txt|g" /tmp/resource/smb.rc
-     cat /tmp/resource/smb.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/445.txt|g" /tmp/resource/445-smb.rc
+     cat /tmp/resource/445-smb.rc >> /tmp/master
 fi
 
 if [[ -e $name/465.txt ]]; then
      echo "     SMTP/S"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/465.txt|g" /tmp/resource/smtp2.rc
-     cat /tmp/resource/smtp2.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/465.txt|g" /tmp/resource/465-smtp.rc
+     cat /tmp/resource/465-smtp.rc >> /tmp/master
 fi
 
 if [[ -e $name/502.txt ]]; then
      echo "     SCADA Modbus Client Utility"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/502.txt|g" /tmp/resource/scada5.rc
-     cat /tmp/resource/scada5.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/502.txt|g" /tmp/resource/502-scada.rc
+     cat /tmp/resource/502-scada.rc >> /tmp/master
 fi
 
 if [[ -e $name/512.txt ]]; then
      echo "     Rexec"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/512.txt|g" /tmp/resource/rservices.rc
-     cat /tmp/resource/rservices.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/512.txt|g" /tmp/resource/512-rexec.rc
+     cat /tmp/resource/512-rexec.rc >> /tmp/master
 fi
 
 if [[ -e $name/513.txt ]]; then
      echo "     rlogin"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/513.txt|g" /tmp/resource/rservices2.rc
-     cat /tmp/resource/rservices2.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/513.txt|g" /tmp/resource/513-rlogin.rc
+     cat /tmp/resource/513-rlogin.rc >> /tmp/master
 fi
 
 if [[ -e $name/514.txt ]]; then
      echo "     rshell"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/514.txt|g" /tmp/resource/rservices3.rc
-     cat /tmp/resource/rservices3.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/514.txt|g" /tmp/resource/514-rshell.rc
+     cat /tmp/resource/514-rshell.rc >> /tmp/master
 fi
 
 if [[ -e $name/523.txt ]]; then
      echo "     db2"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/523.txt|g" /tmp/resource/db2.rc
-     cat /tmp/resource/db2.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/523.txt|g" /tmp/resource/523-udp-db2.rc
+     cat /tmp/resource/523-udp-db2.rc >> /tmp/master
 fi
 
 if [[ -e $name/548.txt ]]; then
      echo "     AFP"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/548.txt|g" /tmp/resource/afp.rc
-     cat /tmp/resource/afp.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/548.txt|g" /tmp/resource/548-afp.rc
+     cat /tmp/resource/548-afp.rc >> /tmp/master
 fi
 
 if [[ -e $name/623.txt ]]; then
      echo "     IPMI"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/623.txt|g" /tmp/resource/ipmi.rc
-     cat /tmp/resource/ipmi.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/623.txt|g" /tmp/resource/623-udp-ipmi.rc
+     cat /tmp/resource/623-udp-ipmi.rc >> /tmp/master
 fi
 
 if [[ -e $name/771.txt ]]; then
      echo "     SCADA Digi"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/771.txt|g" /tmp/resource/scada2.rc
-     cat /tmp/resource/scada2.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/771.txt|g" /tmp/resource/771-scada.rc
+     cat /tmp/resource/771-scada.rc >> /tmp/master
+fi
+
+if [[ -e $name/831.txt ]]; then
+     echo "     EasyCafe Server Remote File Access"
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/831.txt|g" /tmp/resource/831-easycafe.rc
+     cat /tmp/resource/831-easycafe.rc >> /tmp/master
 fi
 
 if [[ -e $name/902.txt ]]; then
      echo "     VMware"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/902.txt|g" /tmp/resource/vmware2.rc
-     cat /tmp/resource/motorola.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/902.txt|g" /tmp/resource/902-vmware.rc
+     cat /tmp/resource/902-vmware.rc >> /tmp/master
+fi
+
+if [[ -e $name/998.txt ]]; then
+     echo "     Novell ZENworks Configuration Management Preboot Service Remote File Access"
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/998.txt|g" /tmp/resource/998-zenworks.rc
+     cat /tmp/resource/998-zenworks.rc >> /tmp/master
 fi
 
 if [[ -e $name/1099.txt ]]; then
      echo "     RMI Registery"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/1099.txt|g" /tmp/resource/rmi.rc
-     cat /tmp/resource/rmi.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/1099.txt|g" /tmp/resource/1099-rmi.rc
+     cat /tmp/resource/1099-rmi.rc >> /tmp/master
 fi
 
 if [[ -e $name/1158.txt ]]; then
      echo "     Oracle"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/1158.txt|g" /tmp/resource/oracle.rc
-     cat /tmp/resource/oracle.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/1158.txt|g" /tmp/resource/1158-oracle.rc
+     cat /tmp/resource/1158-oracle.rc >> /tmp/master
 fi
 
 if [[ -e $name/1433.txt ]]; then
      echo "     MS-SQL"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/1433.txt|g" /tmp/resource/mssql.rc
-     cat /tmp/resource/mssql.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/1433.txt|g" /tmp/resource/1433-mssql.rc
+     cat /tmp/resource/1433-mssql.rc >> /tmp/master
 fi
 
 if [[ -e $name/1521.txt ]]; then
      echo "     Oracle"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/1521.txt|g" /tmp/resource/oracle3.rc
-     cat /tmp/resource/oracle3.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/1521.txt|g" /tmp/resource/1521-oracle.rc
+     cat /tmp/resource/1521-oracle.rc >> /tmp/master
 fi
 
 if [[ -e $name/1604.txt ]]; then
      echo "     Citrix"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/1604.txt|g" /tmp/resource/citrix.rc
-     cat /tmp/resource/citrix.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/1604.txt|g" /tmp/resource/1604-udp-citrix.rc
+     cat /tmp/resource/1604-udp-citrix.rc >> /tmp/master
 fi
 
 if [[ -e $name/1720.txt ]]; then
      echo "     H323"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/1720.txt|g" /tmp/resource/h323.rc
-     cat /tmp/resource/h323.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/1720.txt|g" /tmp/resource/1720-h323.rc
+     cat /tmp/resource/1720-h323.rc >> /tmp/master
 fi
 
 if [[ -e $name/1900.txt ]]; then
      echo "     UPnP"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/1900.txt|g" /tmp/resource/upnp.rc
-     cat /tmp/resource/upnp.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/1900.txt|g" /tmp/resource/1900-udp-upnp.rc
+     cat /tmp/resource/1900-udp-upnp.rc >> /tmp/master
 fi
 
 if [[ -e $name/2362.txt ]]; then
      echo "     SCADA Digi"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/2362.txt|g" /tmp/resource/scada.rc
-     cat /tmp/resource/scada.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/2362.txt|g" /tmp/resource/2362-udp-scada.rc
+     cat /tmp/resource/2362-udp-scada.rc >> /tmp/master
 fi
 
 if [[ -e $name/3000.txt ]]; then
      echo "     EMC"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/3000.txt|g" /tmp/resource/emc.rc
-     cat /tmp/resource/emc.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/3000.txt|g" /tmp/resource/3000-emc.rc
+     cat /tmp/resource/3000-emc.rc >> /tmp/master
+fi
+
+if [[ -e $name/3050.txt ]]; then
+     echo "     Borland InterBase Services Manager Information"
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/3050.txt|g" /tmp/resource/3050-borland.rc
+     cat /tmp/resource/3050-borland.rc >> /tmp/master
 fi
 
 if [[ -e $name/3306.txt ]]; then
      echo "     MySQL"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/3306.txt|g" /tmp/resource/mysql.rc
-     cat /tmp/resource/mysql.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/3306.txt|g" /tmp/resource/3306-mysql.rc
+     cat /tmp/resource/3306-mysql.rc >> /tmp/master
 fi
 
 if [[ -e $name/3310.txt ]]; then
      echo "     ClamAV"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/3310.txt|g" /tmp/resource/clamav.rc
-     cat /tmp/resource/clamav.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/3310.txt|g" /tmp/resource/3310-clamav.rc
+     cat /tmp/resource/3310-clamav.rc >> /tmp/master
 fi
 
 if [[ -e $name/3389.txt ]]; then
      echo "     RDP"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/3389.txt|g" /tmp/resource/rdp.rc
-     cat /tmp/resource/rdp.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/3389.txt|g" /tmp/resource/3389-rdp.rc
+     cat /tmp/resource/3389-rdp.rc >> /tmp/master
 fi
 
 if [[ -e $name/3500.txt ]]; then
      echo "     EMC"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/3500.txt|g" /tmp/resource/emc2.rc
-     cat /tmp/resource/emc2.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/3500.txt|g" /tmp/resource/3500-emc.rc
+     cat /tmp/resource/3500-emc.rc >> /tmp/master
 fi
 
 if [[ -e $name/5040.txt ]]; then
      echo "     DCE/RPC"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5040.txt|g" /tmp/resource/dcerpc2.rc
-     cat /tmp/resource/dcerpc2.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5040.txt|g" /tmp/resource/5040-dcerpc.rc
+     cat /tmp/resource/5040-dcerpc.rc >> /tmp/master
 fi
 
 if [[ -e $name/5060.txt ]]; then
-     echo "     SIP"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5060.txt|g" /tmp/resource/sip.rc
-     cat /tmp/resource/sip.rc >> /tmp/master
+     echo "     SIP UDP"
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5060.txt|g" /tmp/resource/5060-udp-sip.rc
+     cat /tmp/resource/5060-udp-sip.rc >> /tmp/master
 fi
 
 if [[ -e $name/5060-tcp.txt ]]; then
-     echo "     SIP TCP"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5060-tcp.txt|g" /tmp/resource/sip2.rc
-     cat /tmp/resource/sip2.rc >> /tmp/master
+     echo "     SIP"
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5060-tcp.txt|g" /tmp/resource/5060-sip.rc
+     cat /tmp/resource/5060-sip.rc >> /tmp/master
 fi
 
 if [[ -e $name/5432.txt ]]; then
      echo "     Postgres"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5432.txt|g" /tmp/resource/postgres.rc
-     cat /tmp/resource/postgres.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5432.txt|g" /tmp/resource/5432-postgres.rc
+     cat /tmp/resource/5432-postgres.rc >> /tmp/master
 fi
 
 if [[ -e $name/5560.txt ]]; then
      echo "     Oracle iSQL"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5560.txt|g" /tmp/resource/oracle2.rc
-     cat /tmp/resource/oracle2.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5560.txt|g" /tmp/resource/5560-oracle.rc
+     cat /tmp/resource/5560-oracle.rc >> /tmp/master
 fi
 
 if [[ -e $name/5631.txt ]]; then
      echo "     pcAnywhere"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5631.txt|g" /tmp/resource/pcanywhere.rc
-     cat /tmp/resource/pcanywhere.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5631.txt|g" /tmp/resource/5631-pcanywhere.rc
+     cat /tmp/resource/5631-pcanywhere.rc >> /tmp/master
 fi
 
 if [[ -e $name/5632.txt ]]; then
      echo "     pcAnywhere"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5632.txt|g" /tmp/resource/pcanywhere2.rc
-     cat /tmp/resource/pcanywhere2.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5632.txt|g" /tmp/resource/5632-pcanywhere.rc
+     cat /tmp/resource/5632-pcanywhere.rc >> /tmp/master
 fi
 
 if [[ -e $name/5900.txt ]]; then
      echo "     VNC"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5900.txt|g" /tmp/resource/vnc.rc
-     cat /tmp/resource/vnc.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5900.txt|g" /tmp/resource/5900-vnc.rc
+     cat /tmp/resource/5900-vnc.rc >> /tmp/master
 fi
 
 if [[ -e $name/5920.txt ]]; then
-     echo "     Misc CCTV DVR"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5920.txt|g" /tmp/resource/misc.rc
-     cat /tmp/resource/misc.rc >> /tmp/master
+     echo "     CCTV DVR"
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5920.txt|g" /tmp/resource/5920-cctv.rc
+     cat /tmp/resource/5920-cctv.rc >> /tmp/master
 fi
 
 if [[ -e $name/5984.txt ]]; then
      echo "     CouchDB"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5984.txt|g" /tmp/resource/couchdb.rc
-     cat /tmp/resource/couchdb.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5984.txt|g" /tmp/resource/5984-couchdb.rc
+     cat /tmp/resource/5984-couchdb.rc >> /tmp/master
 fi
 
 if [[ -e $name/5985.txt ]]; then
      echo "     winrm"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5985.txt|g" /tmp/resource/winrm.rc
-     cat /tmp/resource/winrm.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/5985.txt|g" /tmp/resource/5985-winrm.rc
+     cat /tmp/resource/5985-winrm.rc >> /tmp/master
 fi
 
 if [[ -e $name/x11.txt ]]; then
      echo "     x11"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/x11.txt|g" /tmp/resource/x11.rc
-     cat /tmp/resource/x11.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/x11.txt|g" /tmp/resource/6000-5-x11.rc
+     cat /tmp/resource/6000-5-x11.rc >> /tmp/master
 fi
 
 if [[ -e $name/6379.txt ]]; then
      echo "     Redis"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/6379.txt|g" /tmp/resource/redis.rc
-     cat /tmp/resource/redis.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/6379.txt|g" /tmp/resource/6379-redis.rc
+     cat /tmp/resource/6379-redis.rc >> /tmp/master
 fi
 
 if [[ -e $name/7777.txt ]]; then
      echo "     Backdoor"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/7777.txt|g" /tmp/resource/backdoor.rc
-     cat /tmp/resource/backdoor.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/7777.txt|g" /tmp/resource/7777-backdoor.rc
+     cat /tmp/resource/7777-backdoor.rc >> /tmp/master
 fi
 
 if [[ -e $name/8000.txt ]]; then
      echo "     Canon"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/8000.txt|g" /tmp/resource/canon.rc
-     cat /tmp/resource/canon.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/8000.txt|g" /tmp/resource/8000-canon.rc
+     cat /tmp/resource/8000-canon.rc >> /tmp/master
 fi
 
 if [[ -e $name/8080.txt ]]; then
      echo "     Tomcat"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/8080.txt|g" /tmp/resource/tomcat.rc
-     cat /tmp/resource/tomcat.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/8080.txt|g" /tmp/resource/8080-tomcat.rc
+     cat /tmp/resource/8080-tomcat.rc >> /tmp/master
+fi
+
+if [[ -e $name/8080.txt ]]; then
+     echo "     Oracle"
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/8080.txt|g" /tmp/resource/8080-oracle.rc
+     cat /tmp/resource/8080-oracle.rc >> /tmp/master
 fi
 
 if [[ -e $name/8222.txt ]]; then
      echo "     VMware"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/8222.txt|g" /tmp/resource/vmware.rc
-     cat /tmp/resource/vmware.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/8222.txt|g" /tmp/resource/8222-vmware.rc
+     cat /tmp/resource/8222-vmware.rc >> /tmp/master
 fi
 
 if [[ -e $name/8400.txt ]]; then
      echo "     Adobe"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/8400.txt|g" /tmp/resource/adobe.rc
-     cat /tmp/resource/adobe.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/8400.txt|g" /tmp/resource/8400-adobe.rc
+     cat /tmp/resource/8400-adobe.rc >> /tmp/master
 fi
 
 if [[ -e $name/8834.txt ]]; then
      echo "     Nessus"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/8834.txt|g" /tmp/resource/nessus.rc
-     cat /tmp/resource/nessus.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/8834.txt|g" /tmp/resource/8834-nessus.rc
+     cat /tmp/resource/8834-nessus.rc >> /tmp/master
+fi
+
+if [[ -e $name/9000.txt ]]; then
+     echo "     Sharp DVR Password Retriever"
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/9000.txt|g" /tmp/resource/9000-sharp.rc
+     cat /tmp/resource/9000-sharp.rc >> /tmp/master
+fi
+
+if [[ -e $name/9084.txt ]]; then
+     echo "     VMware"
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/9084.txt|g" /tmp/resource/9084-vmware.rc
+     cat /tmp/resource/9084-vmware.rc >> /tmp/master
 fi
 
 if [[ -e $name/9100.txt ]]; then
      echo "     Printers"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/9100.txt|g" /tmp/resource/printers.rc
-     cat /tmp/resource/printers.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/9100.txt|g" /tmp/resource/9100-printers.rc
+     cat /tmp/resource/9100-printers.rc >> /tmp/master
 fi
 
 if [[ -e $name/9999.txt ]]; then
      echo "     Telnet"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/9999.txt|g" /tmp/resource/telnet3.rc
-     cat /tmp/resource/telnet3.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/9999.txt|g" /tmp/resource/9999-telnet.rc
+     cat /tmp/resource/9999-telnet.rc >> /tmp/master
+fi
+
+if [[ -e $name/13364.txt ]]; then
+     echo "     Rosewill RXS-3211 IP Camera Password Retriever"
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/13364.txt|g" /tmp/resource/13364-rosewill.rc
+     cat /tmp/resource/13364-rosewill.rc >> /tmp/master
 fi
 
 if [[ -e $name/17185.txt ]]; then
      echo "     VxWorks"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/17185.txt|g" /tmp/resource/vxworks.rc
-     cat /tmp/resource/vxworks.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/17185.txt|g" /tmp/resource/17185-udp-vxworks.rc
+     cat /tmp/resource/17185-udp-vxworks.rc >> /tmp/master
 fi
 
 if [[ -e $name/28784.txt ]]; then
      echo "     SCADA Koyo DirectLogic PLC"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/28784.txt|g" /tmp/resource/scada4.rc
-     cat /tmp/resource/scada4.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/28784.txt|g" /tmp/resource/28784-scada.rc
+     cat /tmp/resource/28784-scada.rc >> /tmp/master
 fi
 
 if [[ -e $name/30718.txt ]]; then
      echo "     Telnet"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/30718.txt|g" /tmp/resource/telnet2.rc
-     cat /tmp/resource/telnet2.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/30718.txt|g" /tmp/resource/30718-telnet.rc
+     cat /tmp/resource/30718-telnet.rc >> /tmp/master
 fi
 
 if [[ -e $name/37777.txt ]]; then
      echo "     Dahua DVR"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/37777.txt|g" /tmp/resource/dahua-dvr.rc
-     cat /tmp/resource/dahua-dvr.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/37777.txt|g" /tmp/resource/37777-dahua-dvr.rc
+     cat /tmp/resource/37777-dahua-dvr.rc >> /tmp/master
 fi
 
 if [[ -e $name/46824.txt ]]; then
      echo "     SCADA Sielco Sistemi"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/46824.txt|g" /tmp/resource/scada6.rc
-     cat /tmp/resource/scada6.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/46824.txt|g" /tmp/resource/46824-scada.rc
+     cat /tmp/resource/46824-scada.rc >> /tmp/master
 fi
 
 if [[ -e $name/50000.txt ]]; then
      echo "     db2"
-     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/50000.txt|g" /tmp/resource/db2-2.rc
-     cat /tmp/resource/db2-2.rc >> /tmp/master
+     sed -i "s|setg RHOSTS.*|setg RHOSTS file:$name\/50000.txt|g" /tmp/resource/50000-db2.rc
+     cat /tmp/resource/50000-db2.rc >> /tmp/master
 fi
 
 echo db_export -f xml -a $name/metasploit.xml >> /tmp/master
@@ -3390,7 +3433,7 @@ echo >> $filename
 echo "High Value Hosts by Port" >> $filename
 echo >> $filename
 
-HVPORTS="13 21 22 23 25 37 53 67 69 70 79 80 102 110 111 119 123 137 139 143 161 389 443 445 465 500 523 524 548 554 623 631 873 993 995 1050 1080 1099 1158 1344 1352 1433 1434 1521 1604 1720 1723 1883 1911 1962 2202 2302 2375 2628 2947 3031 3260 3306 3310 3389 3478 3632 3671 4369 5019 5060 5353 5432 5666 5672 5683 5850 5900 5984 6000 6001 6002 6003 6004 6005 6379 6481 6666 7210 7634 7777 8000 8009 8080 8081 8091 8222 8332 8333 8400 8443 9100 9160 9600 9999 10000 11211 12000 12345 17185 19150 27017 31337 35871 37777 44818 47808 49152 50000 50030 50060 50070 50075 50090 60010 60030"
+HVPORTS="13 19 21 22 23 25 37 53 67 69 70 79 80 102 110 111 119 123 135 137 139 143 161 389 407 433 443 445 465 500 502 512 513 514 523 524 548 554 563 587 623 631 636 771 831 873 902 993 995 998 1050 1080 1099 1158 1344 1352 1433 1434 1521 1604 1720 1723 1883 1900 1911 1962 2202 2302 2362 2375 2628 2947 3000 3031 3050 3260 3306 3310 3389 3478 3500 3632 3671 4369 5019 5040 5060 5353 5432 5560 5631 5632 5666 5672 5683 5850 5900 5920 5984 5985 6000 6001 6002 6003 6004 6005 6379 6481 6666 7210 7634 7777 8000 8009 8080 8081 8091 8222 8332 8333 8400 8443 8834 9000 9084 9100 9160 9600 9999 10000 11211 12000 12345 13364 17185 19150 27017 28784 30718 31337 35871 37777 44818 46824 47808 49152 50000 50030 50060 50070 50075 50090 60010 60030"
 
 for i in $HVPORTS; do
      if [[ -e $name/$i.txt ]]; then
@@ -3408,7 +3451,7 @@ echo $medium >> $filename
 echo >> $filename
 echo "Nmap Scripts" >> $filename
 
-SCRIPTS="script-13 script-21 script-22 script-23 script-25 script-37 script-53 script-67 script-70 script-79 script-102 script-110 script-111 script-119 script-123 script-137 script-143 script-161 script-389 script-445 script-465 script-500 script-523 script-524 script-548 script-554 script-623 script-631 script-873 script-993 script-995 script-1050 script-1080 script-1099 script-1344 script-1352 script-1433 script-1434 script-1521 script-1604 script-1723 script-1883 script-1911 script-1962 script-2202 script-2302 script-2375 script-2628 script-2947 script-3031 script-3260 script-3306 script-3310 script-3389 script-3478 script-3632 script-3671 script-4369 script-5019 script-5060 script-5353 script-5666 script-5672 script-5683 script-5850 script-5900 script-5984 script-x11 script-6379 script-6481 script-6666 script-7210 script-7634 script-8000 script-8009 script-8081 script-8091 script-bitcoin script-9100 script-9160 script-9600 script-9999 script-10000 script-11211 script-12000 script-12345 script-17185 script-19150 script-27017 script-31337 script-35871 script-44818 script-47808 script-49152 script-50000 script-hadoop script-apache-hbase"
+SCRIPTS="script-13 script-21 script-22 script-23 script-smtp script-37 script-53 script-67 script-70 script-79 script-102 script-110 script-111 script-nntp script-123 script-137 script-139 script-143 script-161 script-389 script-445 script-500 script-523 script-524 script-548 script-554 script-623 script-631 script-636 script-873 script-993 script-995 script-1050 script-1080 script-1099 script-1344 script-1352 script-1433 script-1434 script-1521 script-1604 script-1723 script-1883 script-1911 script-1962 script-2202 script-2302 script-2375 script-2628 script-2947 script-3031 script-3260 script-3306 script-3310 script-3389 script-3478 script-3632 script-3671 script-4369 script-5019 script-5060 script-5353 script-5666 script-5672 script-5683 script-5850 script-5900 script-5984 script-x11 script-6379 script-6481 script-6666 script-7210 script-7634 script-8000 script-8009 script-8081 script-8091 script-bitcoin script-9100 script-9160 script-9600 script-9999 script-10000 script-11211 script-12000 script-12345 script-17185 script-19150 script-27017 script-31337 script-35871 script-44818 script-47808 script-49152 script-50000 script-hadoop script-apache-hbase"
 
 for i in $SCRIPTS; do
      if [[ -e $name/"$i.txt" ]]; then
@@ -3992,15 +4035,16 @@ clear
 f_banner
 echo -e "\x1B[1;34mMalicious Payloads\x1B[0m"
 echo
-echo "1.  android/meterpreter/reverse_tcp"
-echo "2.  cmd/windows/reverse_powershell"
-echo "3.  linux/x64/shell_reverse_tcp"
-echo "4.  linux/x86/meterpreter/reverse_tcp"
-echo "5.  osx/x64/shell_reverse_tcp"
-echo "6.  php/meterpreter/reverse_tcp"
-echo "7.  windows/meterpreter/reverse_tcp"
-echo "8.  windows/x64/meterpreter/reverse_tcp"
-echo "9.  Previous menu"
+echo "1.   android/meterpreter/reverse_tcp"
+echo "2.   cmd/windows/reverse_powershell"
+echo "3.   linux/x64/shell_reverse_tcp"
+echo "4.   linux/x86/meterpreter/reverse_tcp"
+echo "5.   osx/x64/shell_reverse_tcp"
+echo "6.   php/meterpreter/reverse_tcp"
+echo "7.   windows/meterpreter/reverse_tcp"
+echo "8.   windows/meterpreter/reverse_tcp (ASP)"
+echo "9.   windows/x64/meterpreter/reverse_tcp"
+echo "10.  Previous menu"
 echo
 echo -n "Choice: "
 read choice
@@ -4042,12 +4086,17 @@ case $choice in
           format="exe"
           arch="x86"
           platform="windows";;
-     8) payload="windows/x64/meterpreter/reverse_tcp"
+     8) payload="windows/meterpreter/reverse_tcp (ASP)"
+          extention=".asp"
+          format="asp"
+          arch="x86"
+          platform="windows";;
+     9) payload="windows/x64/meterpreter/reverse_tcp"
           extention=".exe"
           format="exe"
           arch="x86_64"
           platform="windows";;
-     9) f_main;;
+     10) f_main;;
      *) f_error;;
 esac
 
@@ -4174,9 +4223,9 @@ exit
 
 f_updates(){
 # Remove nmap scripts not being used
-ls -l /usr/share/nmap/scripts/ | awk '{print $9}' | cut -d '.' -f1 | egrep -v '(address-info|ajp-auth|ajp-headers|allseeingeye-info|asn-query|auth-owners|auth-spoof|broadcast|brute|citrix-enum-apps-xml|citrix-enum-servers-xml|clock-skew|creds-summary|daap-get-library|discover|dns-brute|dns-check-zone|dns-client-subnet-scan|dns-fuzz|dns-ip6-arpa-scan|dns-srv-enum|dns-nsec3-enum|domcon-cmd|duplicates|eap-info|fcrdns|firewalk|firewall-bypass|ftp-libopie|ftp-libopie|ftp-vuln-cve2010-4221|ganglia-info|hnap-info|hostmap-bfk|hostmap-ip2hosts|hostmap-robtex|http|iax2-version|informix-query|informix-tables|ip-forwarding|ip-geolocation-geoplugin|ip-geolocation-ipinfodb|ip-geolocation-maxmind|ipidseq|ipv6-node-info|ipv6-ra-flood|ipv6-multicast-mld-list|irc-botnet-channels|irc-info|irc-unrealircd-backdoor|isns-info|jdwp-exec|jdwp-info|jdwp-inject|krb5-enum-users|ldap-novell-getpass|ldap-search|llmnr-resolve|metasploit-info|mmouse-exec|ms-sql-config|mrinfo|ms-sql-hasdbaccess|ms-sql-query|ms-sql-tables|ms-sql-xp-cmdshell|mtrace|murmur-version|mysql-audit|mysql-enum|mysql-dump-hashes|mysql-query|mysql-vuln-cve2012-2122|nat-pmp-info|nat-pmp-mapport|netbus-info|ntp-info|omp2-enum-targets|oracle-enum-users|ovs-agent-version|p2p-conficker|path-mtu|pjl-y-message|quake1-info|quake3-info|quake3-master-getservers|qscan|resolveall|reverse-index|rpc-grind|rpcap-info|rusers|samba-vuln-cve-2012-1182|shodan-api|script|sip-call-spoof|skypev2-version|smb-flood|smb-ls|smb-print-text|smb-psexec|sniffer-detect|snmp-ios-config|socks-open-proxy|sql-injection|ssh-hostkey|ssh2-enum-algos|sshv1|stun-info|teamspeak2-version|targets|tftp-enum|tor-consensus-checker|traceroute-geolocation|unittest|unusual-port|upnp-info|url-snarf|ventrilo-info|vuze-dht-info|weblogic-t3-info|whois|xmlrpc-methods|xmpp-info)' > tmp
+ls -l /usr/share/nmap/scripts/ | awk '{print $9}' | cut -d '.' -f1 | egrep -v '(address-info|ajp-auth|ajp-headers|allseeingeye-info|asn-query|auth-owners|auth-spoof|broadcast|brute|citrix-enum-apps-xml|citrix-enum-servers-xml|clock-skew|creds-summary|daap-get-library|discover|dns-brute|dns-check-zone|dns-client-subnet-scan|dns-fuzz|dns-ip6-arpa-scan|dns-srv-enum|dns-nsec3-enum|domcon-cmd|duplicates|eap-info|fcrdns|fingerprint-strings|firewalk|firewall-bypass|ftp-libopie|ftp-libopie|ganglia-info|hnap-info|hostmap-bfk|hostmap-ip2hosts|hostmap-robtex|http|iax2-version|informix-query|informix-tables|ip-forwarding|ip-geolocation|ipidseq|ipv6|irc-botnet-channels|irc-info|irc-unrealircd-backdoor|isns-info|jdwp-exec|jdwp-info|jdwp-inject|krb5-enum-users|ldap-novell-getpass|ldap-search|llmnr-resolve|metasploit-info|mmouse-exec|ms-sql-config|mrinfo|ms-sql-hasdbaccess|ms-sql-query|ms-sql-tables|ms-sql-xp-cmdshell|mtrace|murmur-version|mysql-audit|mysql-enum|mysql-dump-hashes|mysql-query|nat-pmp-info|nat-pmp-mapport|netbus-info|ntp-info|omp2-enum-targets|oracle-enum-users|ovs-agent-version|p2p-conficker|path-mtu|pjl-y-message|quake1-info|quake3-info|quake3-master-getservers|qscan|resolveall|reverse-index|rpc-grind|rpcap-info|rusers|shodan-api|script|sip-call-spoof|skypev2-version|smb-flood|smb-ls|smb-print-text|smb-psexec|sniffer-detect|snmp-ios-config|socks-open-proxy|sql-injection|ssh-hostkey|ssh2-enum-algos|sshv1|stun-info|teamspeak2-version|targets|tftp-enum|tor-consensus-checker|traceroute-geolocation|unittest|unusual-port|upnp-info|url-snarf|ventrilo-info|vuln-cve|vuze-dht-info|weblogic-t3-info|whois|xmlrpc-methods|xmpp-info)' > tmp
 
-grep 'script=' discover.sh | egrep -v '(discover.sh|22.txt|smtp.txt)' | cut -d '=' -f2- | cut -d ' ' -f1 | tr ',' '\n' | egrep -v '(db2-discover|dhcp-discover|dns-service-discovery|http-email-harvest|http-grep|membase-http-info|oracle-sid-brute|smb-os-discovery)' | sort -u > tmp2
+grep 'script=' discover.sh | egrep -v '(discover.sh|22.txt|smtp.txt)' | cut -d '=' -f2- | cut -d ' ' -f1 | tr ',' '\n' | egrep -v '(db2-discover|dhcp-discover|dns-service-discovery|http-email-harvest|http-grep|membase-http-info|oracle-sid-brute|smb-os-discovery|tn3270-info)' | sort -u > tmp2
 
 echo "New modules to be added." > tmp-updates
 echo >> tmp-updates
@@ -4204,7 +4253,7 @@ done
 sed '/^$/d' tmp > tmp2
 
 # Remove scanners not used
-egrep -v '(ack|afp_login|apache_karaf_command_execution|arp_sweep|brocade_enable_login|call_scanner|cerberus_sftp_enumusers|couchdb_enum|dvr_config_disclosure|empty_udp|endpoint_mapper|ftp_login|ftpbounce|hidden|ipidseq|ipv6_multicast_ping|ipv6_neighbor|ipv6_neighbor_router_advertisement|karaf_login|lotus_domino_hashes|lotus_domino_login|management|mongodb_login|ms08_067_check|msf_rpc_login|msf_web_login|mysql_file_enum|mysql_hashdump|mysql_login|mysql_schemadump|mysql_writable_dirs|natpmp_portscan|nessus_ntp_login|nessus_rest_login|nessus_xmlrpc_login|nexpose_api_login|openvas_gsad_login|openvas_omp_login|openvas_otp_login|pcanywhere_login|poisonivy_control_scanner|pop3_login|profinet_siemens|psexec_loggedin_users|recorder|rogue_recv|rogue_send|sipdroid_ext_enum|snmp_set|ssh_enumusers|ssh_identify_pubkeys|ssh_login|ssh_login_pubkey|station_scanner|syn|tcp|telnet_login|udp_probe|udp_sweep|vmauthd_login|vmware_http_login|wardial|winrm_cmd|winrm_login|winrm_wql|xmas)' tmp2 | sort > tmp-msf-all
+egrep -v '(ack|apache_karaf_command_execution|arp_sweep|call_scanner|cerberus_sftp_enumusers|couchdb_enum|dvr_config_disclosure|empty_udp|endpoint_mapper|ftpbounce|hidden|ipidseq|ipv6|login|lotus_domino_hashes|management|ms08_067_check|mysql_file_enum|mysql_hashdump|mysql_schemadump|mysql_writable_dirs|natpmp_portscan|poisonivy_control_scanner|profinet_siemens|psexec_loggedin_users|recorder|rogue_recv|rogue_send|sipdroid_ext_enum|snmp_set|ssh_enumusers|ssh_identify_pubkeys|station_scanner|syn|tcp|udp_probe|udp_sweep|wardial|winrm_cmd|winrm_wql|xmas)' tmp2 | sort > tmp-msf-all
 
 grep 'use ' $discover/resource/*.rc | grep -v 'recon-ng' > tmp
 
@@ -4220,7 +4269,7 @@ echo "==============================" >> tmp-updates
 python /usr/share/recon-ng/recon-cli -M > tmp
 grep '/' tmp | awk '{print $1}' | egrep -iv '(adobe|bozocrack|brute_suffix|cache_snoop|dev_diver|exploitation|freegeoip|gists_search|github_commits|github_dorks|github_users|google_site_web|hashes_org|import|interesting_files|ipinfodb|jigsaw|linkedin_auth|locations|mailtester|mangle|metacrawler|migrate_contacts|migrate_hosts|namechk|profiler|pwnedlist|reporting|vulnerabilities)' > tmp2
 cat $discover/resource/recon-ng.rc $discover/resource/recon-ng-active.rc | grep 'use' | grep -v 'query' | awk '{print $2}' | sort -u > tmp3
-diff tmp2 tmp3 | grep '/' | awk '{print $2}' | sort -u >> tmp-updates
+diff tmp2 tmp3 | grep '/' | grep -v 'indeed' | awk '{print $2}' | sort -u >> tmp-updates
 
 echo >> tmp-updates
 echo >> tmp-updates
