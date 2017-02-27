@@ -33,7 +33,7 @@ trap f_terminate SIGHUP SIGINT SIGTERM
 discover=$(updatedb; locate discover.sh | sed 's:/[^/]*$::')
 distro=$(uname -n)
 home=$HOME
-long='========================================================================================================='
+long='=============================================================================================================='
 medium='==============================================================='
 short='========================================'
 
@@ -353,7 +353,7 @@ case $choice in
      # Realign Columns
      sed -e 's/..,/   /g' tmp2 > tmp3
      # Convert Caps
-     sed 's/AUSTRALIA/Australia/g; s/AUSTRIA/Austria/g; s/BAHAMAS/Bahamas/g; s/BANGLADESH/Bangladesh/g; s/BELGIUM/Belgium/g; s/CANADA/Canada/g; s/CAYMAN ISLANDS/Cayman Islands/g; s/CHILE/Chile/g; s/CHINA/China/g; s/COSTA RICA/Costa Rica/g; s/CZECH REPUBLIC/Czech Republic/g; s/DENMARK/Denmark/g; s/EUROPEAN UNION/European Union/g; s/FINLAND/Finland/g; s/FRANCE/France/g; s/GERMANY/Germany/g; s/HONG KONG/Hong Kong/g; s/HUNGARY/Hungary/g; s/INDIA/India/g; s/IRELAND/Ireland/g; s/ISRAEL/Israel/g; s/ITALY/Italy/g; s/JAPAN/Japan/g; s/KOREA REPUBLIC OF/Republic of Korea/g; s/LUXEMBOURG/Luxembourg/g; s/NETHERLANDS/Netherlands/g; s/NORWAY/Norway/g; s/POLAND/Poland/g; s/RUSSIAN FEDERATION/Russia            /g; s/SAUDI ARABIA/Saudi Arabia/g; s/SPAIN/Spain/g; s/SWEDEN/Sweden/g; s/SWITZERLAND/Switzerland/g; s/TAIWAN REPUBLIC OF China (ROC)/Taiwan                        /g; s/THAILAND/Thailand/g; s/TURKEY/Turkey/g; s/UKRAINE/Ukraine/g; s/UNITED KINGDOM/United Kingdom/g; s/UNITED STATES/United States/g; s/VIRGIN ISLANDS (BRITISH)/Virgin Islands          /g; s/ROMANIA/Romania/g; s/SLOVAKIA/Slovakia/g' tmp3 > squatting
+     sed 's/AUSTRALIA/Australia/g; s/AUSTRIA/Austria/g; s/BAHAMAS/Bahamas/g; s/BANGLADESH/Bangladesh/g; s/BELGIUM/Belgium/g; s/BULGARIA/Bulgaria/g; s/CANADA/Canada/g; s/CAYMAN ISLANDS/Cayman Islands/g; s/CHILE/Chile/g; s/CHINA/China/g; s/COSTA RICA/Costa Rica/g; s/CZECH REPUBLIC/Czech Republic/g; s/DENMARK/Denmark/g; s/EUROPEAN UNION/European Union/g; s/FINLAND/Finland/g; s/FRANCE/France/g; s/GERMANY/Germany/g; s/HONG KONG/Hong Kong/g; s/HUNGARY/Hungary/g; s/INDIA/India/g; s/INDONESIA/Indonesia/g; s/IRELAND/Ireland/g; s/ISRAEL/Israel/g; s/ITALY/Italy/g; s/JAPAN/Japan/g; s/KOREA REPUBLIC OF/Republic of Korea/g; s/LUXEMBOURG/Luxembourg/g; s/NETHERLANDS/Netherlands/g; s/NORWAY/Norway/g; s/POLAND/Poland/g; s/RUSSIAN FEDERATION/Russia            /g; s/SAUDI ARABIA/Saudi Arabia/g; s/SPAIN/Spain/g; s/SWEDEN/Sweden/g; s/SWITZERLAND/Switzerland/g; s/TAIWAN REPUBLIC OF China (ROC)/Taiwan                        /g; s/THAILAND/Thailand/g; s/TURKEY/Turkey/g; s/UKRAINE/Ukraine/g; s/UNITED KINGDOM/United Kingdom/g; s/UNITED STATES/United States/g; s/VIRGIN ISLANDS (BRITISH)/Virgin Islands          /g; s/ROMANIA/Romania/g; s/SLOVAKIA/Slovakia/g' tmp3 > squatting
 
      ##############################################################
 
@@ -783,6 +783,7 @@ case $choice in
      fi
 
      if [ -e whois-ip ]; then
+          echo >> zreport
           echo "Whois IP" >> zreport
           echo $long >> zreport
           cat whois-ip >> zreport
@@ -834,25 +835,27 @@ case $choice in
      sleep 2
      $web https://www.google.com/#q=site%3A$domain+filetype%3Atxt &
      sleep 2
-     $web https://www.google.com/#q=site%3A$domain+admin &
+     $web https://www.google.com/#q=site%3A$domain+inurl:admin &
      sleep 2
-     $web https://www.google.com/#q=site%3A$domain+confidential &
+     $web https://www.google.com/#q=site%3A$domain+inurl:confidential &
+     sleep 2
+     $web https://www.google.com/#q=site%3A$domain+inurl:connect &
+     sleep 2
+     $web https://www.google.com/#q=site%3A$domain+inurl:login &
+     sleep 2
+     $web https://www.google.com/#q=site%3A$domain+inurl:portal &
+     sleep 2
+     $web https://www.google.com/#q=site%3A$domain+inurl:upload &
      sleep 2
      $web https://www.google.com/#q=site%3A$domain+%22internal+use+only%22 &
      sleep 2
-     $web https://www.google.com/#q=site%3A$domain+login &
-     sleep 2
      $web https://www.google.com/#q=site%3A$domain+password &
-     sleep 2
-     $web https://www.google.com/#q=site%3A$domain+portal &
      sleep 2
      $web https://www.google.com/#q=site%3A$domain+ssn &
      sleep 2
      $web https://www.google.com/#q=site%3A$domain+%22top+secret%22 &
      sleep 2
-     $web https://www.google.com/#q=site%3A$domain+upload &
-     sleep 2
-     $web https://www.google.com/#q=site%3A$domain+inurl:%22index+of%22 &
+     $web https://www.google.com/#q=site%3A$domain+%22index+of%22 &
      sleep 2
      $web https://www.google.com/#q=site%3Apastebin.com+intext:%40$domain &
      sleep 2
@@ -3501,6 +3504,38 @@ exit
 
 ##############################################################################################################
 
+f_directObjectRef(){
+clear
+f_banner
+
+echo -e "\x1B[1;34mUsing Burp, authenticate to a site, map & Spider, then log out.\x1B[0m"
+echo -e "\x1B[1;34mTarget > Site map > select the URL > right click > Copy URLs in this host.\x1B[0m"
+echo -e "\x1B[1;34mPaste the results into a new file.\x1B[0m"
+
+f_location
+
+for i in $(cat $location); do
+     curl -sk -w "%{http_code} - %{url_effective} \\n" "$i" -o /dev/null 2>&1 | tee -a tmp
+done
+
+cat tmp | sort -u > DirectObjectRef.txt
+mv DirectObjectRef.txt $home/data/DirectObjectRef.txt
+rm tmp
+
+echo
+echo $medium
+echo
+echo "***Scan complete.***"
+echo
+echo
+printf 'The new report is located at \x1B[1;33m%s\x1B[0m\n' $home/data/DirectObjectRef.txt
+echo
+echo
+exit
+}
+
+##############################################################################################################
+
 f_multitabs(){
 f_runlocally
 clear
@@ -4309,17 +4344,18 @@ echo "7.  IP, range, or URL"
 echo "8.  Rerun Nmap scripts and MSF aux."
 echo
 echo -e "\x1B[1;34mWEB\x1B[0m"
-echo "9.  Open multiple tabs in $browser"
-echo "10. Nikto"
-echo "11. SSL"
+echo "9.  Insecure direct object reference"
+echo "10. Open multiple tabs in $browser"
+echo "11. Nikto"
+echo "12. SSL"
 echo
 echo -e "\x1B[1;34mMISC\x1B[0m"
-echo "12. Crack WiFi"
-echo "13. Parse XML"
-echo "14. Generate a malicious payload"
-echo "15. Start a Metasploit listener"
-echo "16. Update"
-echo "17. Exit"
+echo "13. Crack WiFi"
+echo "14. Parse XML"
+echo "15. Generate a malicious payload"
+echo "16. Start a Metasploit listener"
+echo "17. Update"
+echo "18. Exit"
 echo
 echo -n "Choice: "
 read choice
@@ -4333,15 +4369,16 @@ case $choice in
      6) f_list;;
      7) f_single;;
      8) f_enumerate;;
-     9) f_multitabs;;
-     10) f_errorOSX; f_nikto;;
-     11) f_errorOSX; f_ssl;;
-     12) f_runlocally && $discover/crack-wifi.sh;;
-     13) f_parse;;
-     14) f_payload;;
-     15) f_listener;;
-     16) f_errorOSX; $discover/update.sh && exit;;
-     17) clear && exit;;
+     9) f_directObjectRef;;	 
+     10) f_multitabs;;
+     11) f_errorOSX; f_nikto;;
+     12) f_errorOSX; f_ssl;;
+     13) f_runlocally && $discover/crack-wifi.sh;;
+     14) f_parse;;
+     15) f_payload;;
+     16) f_listener;;
+     17) f_errorOSX; $discover/update.sh && exit;;
+     18) clear && exit;;
      99) f_errorOSX; f_updates;;
      *) f_error;;
 esac
